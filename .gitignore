@@ -1,0 +1,20 @@
+# Ignore everything
+*
+
+# But not these files...
+!/.gitignore
+!/.vimrc
+!/.tmux.conf
+!/.bashrc
+!/.Xresources
+!/.zshrc
+
+# And these directories...
+!/.config/
+!/.config/termite/
+!/.config/termite/config
+!/.vim/
+!/.vim/**
+!/.xmonad/
+!/.xmonad/**
+

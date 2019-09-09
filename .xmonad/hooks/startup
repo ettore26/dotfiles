@@ -1,0 +1,4 @@
+#!/bin/bash
+
+compton -cC -fF -i 0.8 -bc -t -8 -l -9 -r 6 -o 0.7 -m 1.0
+feh --bg-fill Pictures/arch_ribbons.png
