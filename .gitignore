@@ -8,6 +8,7 @@
 !/.bashrc
 !/.Xresources
 !/.zshrc
+!/README.md
 
 # And these directories...
 !/.config/
