@@ -7,7 +7,7 @@ Hide your .oh-my-zsh home git prompt:
 
 What is needed:
 - tmux
-- vim
+- vim (vim-colors-solarized)
 - zsh (oh-my-zsh, powerline)
 - termite or rxvt-unicode
 - xmonad (optional, may not work)
