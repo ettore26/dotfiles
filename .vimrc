@@ -38,3 +38,7 @@ set background=dark
 " markdonw config
 let g:vim_markdown_folding_disabled=1
 let g:markdown_enable_conceal = 1
+
+" system clipboard
+set clipboard=unnamedplus
+
