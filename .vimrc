@@ -5,6 +5,10 @@ execute pathogen#infect()
 syntax on
 set number
 
+" retain the visual selection after having pressed > or <
+vnoremap > >gv
+vnoremap < <gv
+
 " paste selection multiple times
 xnoremap p pgvy
 
@@ -34,6 +38,7 @@ imap <C-@> <C-Space>
 
 " colors config
 set background=dark
+colorscheme solarized
 
 " markdonw config
 let g:vim_markdown_folding_disabled=1
