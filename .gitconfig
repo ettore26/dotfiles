@@ -1,0 +1,12 @@
+[core]
+	pager = less -F -X
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+	renameLimit = 999999
+[mergetool]
+    prompt = false
+[pager]
+    status = true
+[push]
+	default = upstream
