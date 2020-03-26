@@ -1,5 +1,14 @@
+[http]
+	proxy = 10.1.32.228:8080
+	sslverify = false
 [core]
-	pager = less -F -X
+    # pager = less -F -X
+    pager = /usr/share/git/diff-highlight/diff-highlight | less -+FX -R
+    # pager = diff-so-fancy | less --tabs=4 -RFX
+# [diff]
+#     algorithm = minimal
+#     compactionHeuristic = true
+#     renames = true
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
