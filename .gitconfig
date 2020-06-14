@@ -3,7 +3,8 @@
 	sslverify = false
 [core]
     # pager = less -F -X
-    pager = /usr/share/git/diff-highlight/diff-highlight | less -+FX -R
+    # pager = /usr/share/git/diff-highlight/diff-highlight | less -+FX -R
+    pager = /usr/share/git/diff-highlight/diff-highlight | less -FX -R
     # pager = diff-so-fancy | less --tabs=4 -RFX
 # [diff]
 #     algorithm = minimal
