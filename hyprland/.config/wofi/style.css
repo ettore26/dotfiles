@@ -1,0 +1,129 @@
+/* Gruvbox Dark Theme Colors */
+@define-color	bg0 #282828;
+@define-color	bg0-rgb rgb(40, 40, 40);
+@define-color	bg1 #3c3836;
+@define-color	bg1-rgb rgb(60, 56, 54);
+@define-color	bg2 #504945;
+@define-color	bg2-rgb rgb(80, 73, 69);
+@define-color	bg3 #665c54;
+@define-color	bg3-rgb rgb(102, 92, 84);
+@define-color	bg4 #7c6f64;
+@define-color	bg4-rgb rgb(124, 111, 100);
+@define-color	fg0 #fbf1c7;
+@define-color	fg0-rgb rgb(251, 241, 199);
+@define-color	fg1 #ebdbb2;
+@define-color	fg1-rgb rgb(235, 219, 178);
+@define-color	fg2 #d5c4a1;
+@define-color	fg2-rgb rgb(213, 196, 161);
+@define-color	fg3 #bdae93;
+@define-color	fg3-rgb rgb(189, 174, 147);
+@define-color	fg4 #a89984;
+@define-color	fg4-rgb rgb(168, 153, 132);
+@define-color	red #fb4934;
+@define-color	red-rgb rgb(251, 73, 52);
+@define-color	green #b8bb26;
+@define-color	green-rgb rgb(184, 187, 38);
+@define-color	yellow #fabd2f;
+@define-color	yellow-rgb rgb(250, 189, 47);
+@define-color	blue #83a598;
+@define-color	blue-rgb rgb(131, 165, 152);
+@define-color	purple #d3869b;
+@define-color	purple-rgb rgb(211, 134, 155);
+@define-color	aqua #8ec07c;
+@define-color	aqua-rgb rgb(142, 192, 124);
+@define-color	gray #928374;
+@define-color	gray-rgb rgb(146, 131, 116);
+@define-color	orange #fe8019;
+@define-color	orange-rgb rgb(254, 128, 25);
+
+/* Color aliases for compatibility */
+@define-color	base #282828;
+@define-color	text #ebdbb2;
+@define-color	lavender #8ec07c;
+@define-color	mauve #d3869b;
+
+* {
+    font-family: 'CaskaydiaCove Nerd Font', monospace;
+    font-size: 18px;
+}
+
+/* Window */
+window {
+    margin: 0px;
+    padding: 10px;
+    border: 2px solid @aqua;
+    border-radius: 8px;
+    background-color: @base;
+}
+
+/* Inner Box */
+#inner-box {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    background-color: @base;
+}
+
+/* Outer Box */
+#outer-box {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    background-color: @base;
+}
+
+/* Scroll */
+#scroll {
+    margin: 0px;
+    padding: 10px;
+    border: none;
+    background-color: @base;
+}
+
+/* Input */
+#input {
+    margin: 5px 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 0.1em;
+    color: @text;
+    background-color: @base;
+}
+
+#input image {
+    border: none;
+    color: @red;
+}
+
+#input * {
+    outline: 4px solid @red !important;
+}
+
+/* Text */
+#text {
+    margin: 5px;
+    border: none;
+    color: @text;
+}
+
+#entry {
+    background-color: @base;
+}
+
+#entry arrow {
+    border: none;
+    color: @aqua;
+}
+
+/* Selected Entry */
+#entry:selected {
+    border: 0.11em solid @aqua;
+}
+
+#entry:selected #text {
+    color: @purple;
+}
+
+#entry:drop(active) {
+    background-color: @aqua !important;
+}

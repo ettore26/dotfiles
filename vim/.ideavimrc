@@ -1,0 +1,60 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+" List all the IDE actions
+" :actionlist
+
+" Config ideas
+" https://www.cyberwizard.io/posts/the-ultimate-ideavim-setup/
+
+" Source your .vimrc
+source ~/.vimrc
+
+let mapleader=" "
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+set NERDTree
+set relativenumber
+set scrolloff=3
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+" map <leader>e HideActiveWindow
+"" Map <leader>d to start debug
+" map <leader>d <Action>(Debug)
+map <leader>fg <Action>(FindInPath)
+" map <leader>ff <Action>(GotoClass)
+map <leader>ff <Action>(GotoFile)
+" map <leader>e :NERDTreeToggle<CR>
+map <leader>e <Action>(ActivateProjectToolWindow)
+
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-p> :tabprevious<CR>
+" nnoremap <C-c> :tabclose<CR>
+nnoremap <C-c> :q<CR>
+
+" [nnoremap ]g <Action>(GotoNextError)
+" [nnoremap [g <Action>(GotoPreviousError)
+nnoremap ]g :action GotoNextError<CR>
+nnoremap [g :action GotoPreviousError<CR>
+" vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
+" vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
+
+" map <C-y> <Action>(EditorChooseLookupItem)
+" inoremap <C-y> <Tab>
+" map <C-y> <Action>(EditorChooseLookupItem)
+" map <C-y> <Action>(EditorChooseLookupItemReplace)
+" map <C-y> <Action>(EditorChooseLookupItemDot)
+" map <C-y> <Action>(EditorCompleteStatement)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)

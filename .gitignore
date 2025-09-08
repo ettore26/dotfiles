@@ -1,0 +1,24 @@
+# Ignore everything
+
+# AWS credentials - never commit actual credentials
+tools/.aws/credentials
+
+# GitHub CLI hosts file may contain tokens
+tools/.config/gh/hosts.yml
+
+# Any backup files
+*.bak
+*.backup
+*~
+
+**/cache
+
+# SSH keys (just in case)
+**/.ssh/
+**/id_*
+**/*.pem
+
+# Browser data
+**/.mozilla/
+**/.config/chromium/
+
