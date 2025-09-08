@@ -78,7 +78,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           -- find_command = { 'rg', '--files', '--hidden', '--no-ignore', '--glob', '!**/.git/*' },
           -- find_command = { 'rg', '--files', '--hidden' },
           -- find_command = { 'fd', '-t=d', '-t=f' },
-          find_command = { "fd", "-t=f", "--no-ignore-parent" },
+          find_command = { "fd", "-t=f", "--no-ignore-parent", "--hidden" },
           -- theme = 'dropdown',
         },
       },
