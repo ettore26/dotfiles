@@ -188,6 +188,7 @@ return {
         desc = "[L]SP [F]ormat",
       },
     },
+    --- @type conform.setupOpts
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -217,6 +218,17 @@ return {
         }
       end,
 
+      formatters = {
+        prettier = {
+          append_args = function(self, ctx)
+            if string.match(ctx.filename, "%.json[c]?$") then
+              return { "--parser", "json" }
+            end
+            return {}
+          end,
+        },
+      },
+
       formatters_by_ft = {
         lua = { "stylua" },
         cpp = { "clang-format" },
@@ -225,6 +237,8 @@ return {
         python = { "isort", "black" },
         typescript = { "prettierd", "prettier", stop_after_first = true },
         javascript = { "prettierd", "prettier", stop_after_first = true },
+        json = { "prettier" },
+        jsonc = { "prettier" },
         sh = { "shfmt" },
         zsh = { "shfmt" },
       },
