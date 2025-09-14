@@ -4,7 +4,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "franco-ruggeri/codecompanion-spinner.nvim",
+      "lalitmee/codecompanion-spinners.nvim",
     },
     opts = {
       strategies = {
@@ -50,10 +50,18 @@ return {
               },
             })
           end,
+
+          claude_code = function()
+            return require("codecompanion.adapters").extend("claude_code", {})
+          end,
         },
       },
       extensions = {
-        spinner = {},
+        spinner = {
+          opts = {
+            style = "native",
+          },
+        },
       },
     },
 
@@ -68,3 +76,4 @@ return {
     end,
   },
 }
+
