@@ -73,13 +73,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
       },
       pickers = {
         find_files = {
-          -- hidden = true, -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-          -- no_ignore = true,
-          -- find_command = { 'rg', '--files', '--hidden', '--no-ignore', '--glob', '!**/.git/*' },
-          -- find_command = { 'rg', '--files', '--hidden' },
-          -- find_command = { 'fd', '-t=d', '-t=f' },
           find_command = { "fd", "-t=f", "--no-ignore-parent", "--hidden" },
-          -- theme = 'dropdown',
+        },
+        live_grep = {
+          additional_args = function(opts)
+            return { "--hidden", "--no-ignore", "--glob", "!**/.git/*" }
+          end,
         },
       },
       extensions = {

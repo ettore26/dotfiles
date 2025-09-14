@@ -309,6 +309,11 @@ return {
         default = { "lsp", "path", "snippets", "lazydev" },
         providers = {
           lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+          snippets = {
+            should_show_items = function(ctx)
+              return ctx.trigger.initial_kind ~= "trigger_character"
+            end,
+          },
         },
       },
 
