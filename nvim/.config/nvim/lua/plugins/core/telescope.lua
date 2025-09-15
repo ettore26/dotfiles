@@ -73,12 +73,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
       },
       pickers = {
         find_files = {
-          find_command = { "fd", "-t=f", "--no-ignore-parent", "--hidden" },
+          find_command = { "fd", "-t=f", "--hidden" },
         },
         live_grep = {
-          additional_args = function(opts)
-            return { "--hidden", "--no-ignore", "--glob", "!**/.git/*" }
-          end,
+          additional_args = { "--hidden" },
         },
       },
       extensions = {
@@ -96,8 +94,56 @@ return { -- Fuzzy Finder (files, lsp, etc)
     local builtin = require("telescope.builtin")
     local utils = require("telescope.utils")
 
-    vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
-    vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ind [G]rep" })
+    -- https://github.com/nvim-telescope/telescope.nvim/issues/2874#issuecomment-1900967890
+    local my_find_files
+    my_find_files = function(opts, no_ignore)
+      opts = opts or {}
+      no_ignore = vim.F.if_nil(no_ignore, false)
+      opts.attach_mappings = function(_, map)
+        map({ "n", "i" }, "<C-i>", function(prompt_bufnr)
+          local prompt = require("telescope.actions.state").get_current_line()
+          require("telescope.actions").close(prompt_bufnr)
+          no_ignore = not no_ignore
+          my_find_files({ default_text = prompt }, no_ignore)
+        end)
+        return true
+      end
+      if no_ignore then
+        opts.no_ignore = true
+        opts.hidden = true
+        opts.prompt_title = "Find Files <ALL>"
+        require("telescope.builtin").find_files(opts)
+      else
+        opts.prompt_title = "Find Files"
+        require("telescope.builtin").find_files(opts)
+      end
+    end
+
+    local my_grep_files
+    my_grep_files = function(opts, no_ignore)
+      opts = opts or {}
+      no_ignore = vim.F.if_nil(no_ignore, false)
+      opts.attach_mappings = function(_, map)
+        map({ "n", "i" }, "<C-i>", function(prompt_bufnr)
+          local prompt = require("telescope.actions.state").get_current_line()
+          require("telescope.actions").close(prompt_bufnr)
+          no_ignore = not no_ignore
+          my_grep_files({ default_text = prompt }, no_ignore)
+        end)
+        return true
+      end
+      if no_ignore then
+        opts.additional_args = { "--hidden", "--no-ignore" }
+        opts.prompt_title = "Live Grep <ALL>"
+        require("telescope.builtin").live_grep(opts)
+      else
+        opts.prompt_title = "Live Grep"
+        require("telescope.builtin").live_grep(opts)
+      end
+    end
+
+    vim.keymap.set("n", "<leader>ff", my_find_files, { desc = "[F]ind [F]iles" })
+    vim.keymap.set("n", "<leader>fg", my_grep_files, { desc = "[F]ind [G]rep" })
     vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind [B]uffers" })
     vim.keymap.set("n", "<leader>hf", builtin.help_tags, { desc = "[H]elp Tags [F]ind" })
     vim.keymap.set("n", "<leader>hm", builtin.man_pages, { desc = "[H]elp [M]an Pages" })
