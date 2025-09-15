@@ -147,7 +147,47 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        -- bash, zsh, aws
+        "bash-language-server",
+        "shfmt",
+        "cfn-lint",
+        -- c/c++, glsl
+        "glsl_analyzer",
+        "clang-format",
+        "clangd",
+        "neocmakelsp",
+        -- rust
+        "rust-analyzer",
+        -- pyton
+        "debugpy",
+        "pyright",
+        "black",
+        "isort",
+        -- js, ts, html, css
+        "typescript-language-server",
+        "emmet-ls",
+        "eslint-lsp",
+        "eslint_d",
+        "css-lsp",
+        "tailwindcss-language-server",
+        "html-lsp",
+        -- json, xml, toml, yaml
+        "prettier",
+        "prettierd",
+        "lemminx",
+        "taplo",
+        "yaml-language-server",
+        -- php
+        "intelephense",
+        -- java
+        "java-test",
+        "jdtls",
+        "gradle-language-server",
+        -- lua
+        "lua-language-server",
         "stylua",
+        -- c#
+        "omnisharp",
       })
       require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
