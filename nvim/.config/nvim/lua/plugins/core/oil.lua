@@ -49,5 +49,8 @@ return {
         vim.api.nvim_command("edit " .. current_dir .. cursor_entry.name)
       end
     end, { desc = "Open file under cursor and do not follow link" }),
+
+    -- abbreviate % for vim-fugitive
+    vim.cmd.cabbr({ args = { "<expr>", "%", "&filetype == 'oil' ? bufname('%')[6:] : '%'" } }),
   },
 }

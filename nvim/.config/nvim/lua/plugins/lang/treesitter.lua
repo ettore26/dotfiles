@@ -29,6 +29,7 @@ return {
         "toml",
         "ruby",
         "go",
+        "clojure",
       },
       -- Autoinstall languages that are not installed
       auto_install = true,

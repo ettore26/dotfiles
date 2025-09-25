@@ -44,6 +44,7 @@ require("lazy").setup(
     -- require("plugins.lang.lint"),
     require("plugins.lang.lsp-config"),
     require("plugins.lang.treesitter"),
+    require("plugins.lang.conjure"),
     -- core
     require("plugins.core.oil"),
     require("plugins.core.telescope"),
@@ -70,6 +71,7 @@ require("lazy").setup(
     require("plugins.extra.zen"),
     require("plugins.extra.aerial"),
     require("plugins.extra.snacks"),
+    require("plugins.extra.kulala")
     -- tests
     -- require("plugins.test.debug"),
     -- require("plugins.test.indent_line"),
