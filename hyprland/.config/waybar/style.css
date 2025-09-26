@@ -155,6 +155,7 @@
 #backlight,
 #network,
 #custom-lock,
+#language,
 #battery {
     background-color: #282828;
     padding: 0.3rem 0.7rem;
@@ -256,4 +257,8 @@ tooltip {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     font-size: 12px;
+}
+
+#language {
+    min-width: 15px;
 }

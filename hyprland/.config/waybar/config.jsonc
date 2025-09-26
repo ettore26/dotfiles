@@ -9,6 +9,7 @@
     "bluetooth",
     "network",
     "pulseaudio",
+    "hyprland/language",
     "backlight",
     "battery"
   ],
@@ -91,6 +92,11 @@
     "format-plugged": " {capacity}%",
     "format-alt": "{icon} {time}",
     "format-icons": ["", "", "", "", ""]
+  },
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "en",
+    "format-es": "es"
   },
   "custom/lock": {
     "tooltip": false,
