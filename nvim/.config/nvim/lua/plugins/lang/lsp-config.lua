@@ -131,6 +131,7 @@ return {
         rust_analyzer = {},
         ts_ls = {},
         jdtls = {},
+        clojure_lsp = {},
         lua_ls = {
           settings = {
             Lua = {
