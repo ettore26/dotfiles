@@ -71,6 +71,7 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  brew
   tmux
   git
   docker
@@ -114,10 +115,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # local binary path
-export LOCAL_BIN_PATH=$( find $HOME/.local/bin -maxdepth 1 -type d -printf "%p:" )
-export PATH="$LOCAL_BIN_PATH$PATH"
-# export LOCAL_BIN_PATH=$( find $HOME/.local/bin -maxdepth 1 -type d -printf "%p:" )
-# export PATH="$HOME/.local/bin/:$PATH"
+export PATH="$HOME/.local/bin/:$PATH"
 
 # FZF config
 source <(fzf --zsh)
