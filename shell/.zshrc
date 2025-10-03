@@ -139,23 +139,6 @@ export PATH="$GOPATH/bin:$PATH"
 # kubernetes helm config
 export KUBECONFIG=~/.kube/config
 
-# config IntelliJ IDEA script
-function idea() {
-    ( ~/.local/share/JetBrains/Toolbox/scripts/idea nosplash "$@" & ) > /dev/null 2>&1
-}
-
-function pycharm() {
-    ( ~/.local/share/JetBrains/Toolbox/scripts/pycharm nosplash "$@" & ) > /dev/null 2>&1
-}
-
-function webstorm() {
-    ( ~/.local/share/JetBrains/Toolbox/scripts/webstorm nosplash "$@" & ) > /dev/null 2>&1
-}
-
-function cursor {
-    ( ~/.local/share/cursor/Cursor.AppImage "$@" & ) > /dev/null 2>&1
-}
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -170,19 +153,19 @@ alias vim=nvim
 alias john=$HOME/.local/lib/john_the_ripper/john
 alias grep="grep --color=always"
 alias task=go-task
-alias claude="/home/ettore/.claude/local/claude"
+alias claude="$HOME/.claude/local/claude"
 
 eval "$(gh copilot alias -- zsh)"
 
 # bun completions
-[ -s "/home/ettore/.bun/_bun" ] && source "/home/ettore/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/home/ettore/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;

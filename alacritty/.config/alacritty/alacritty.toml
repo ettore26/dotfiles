@@ -27,7 +27,8 @@ style = "Regular"
 [window]
 opacity = 1
 decorations = "none"
-startup_mode = "Maximized"
+startup_mode = "SimpleFullscreen"
+option_as_alt = "Both"
 
 [keyboard]
 bindings = [
