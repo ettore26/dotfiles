@@ -150,8 +150,6 @@ export NVM_DIR="$HOME/.nvm"
 alias vim=nvim
 alias john=$HOME/.local/lib/john_the_ripper/john
 alias grep="grep --color=always"
-alias task=go-task
-alias claude="$HOME/.claude/local/claude"
 
 eval "$(gh copilot alias -- zsh)"
 
