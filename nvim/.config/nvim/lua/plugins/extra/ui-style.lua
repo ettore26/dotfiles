@@ -11,6 +11,8 @@ return {
     priority = 1000,
     opts = {
       overrides = {
+        NotifyBackground = { bg = "#000000", fg = "NONE" },
+
         SignColumn = { bg = "NONE" },
         GruvboxYellowSign = { bg = "NONE" },
         GruvboxRedSign = { bg = "NONE" },

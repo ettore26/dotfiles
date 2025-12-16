@@ -78,7 +78,6 @@ plugins=(
   vi-mode
   colored-man-pages
   mvn
-  pip
   poetry
   mix
   kubectl

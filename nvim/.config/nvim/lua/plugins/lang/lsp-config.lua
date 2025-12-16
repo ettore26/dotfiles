@@ -127,7 +127,18 @@ return {
         clangd = {
           cmd = { "clangd", "--offset-encoding=utf-16" },
         },
-        pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+              },
+            },
+          },
+        },
         rust_analyzer = {},
         ts_ls = {},
         jdtls = {},
@@ -159,8 +170,9 @@ return {
         -- pyton
         "debugpy",
         "pyright",
-        "black",
-        "isort",
+        -- "black",
+        -- "isort",
+        "ruff",
         -- js, ts, html, css
         "typescript-language-server",
         "emmet-ls",
@@ -274,7 +286,15 @@ return {
         cpp = { "clang-format" },
         markdown = { "prettier" },
         -- Conform can also run multiple formatters sequentially
-        python = { "isort", "black" },
+        python = {
+          -- "ruff",
+          -- To fix auto-fixable lint errors.
+          "ruff_fix",
+          -- To run the Ruff formatter.
+          "ruff_format",
+          -- To organize the imports.
+          "ruff_organize_imports",
+        },
         typescript = { "prettierd", "prettier", stop_after_first = true },
         javascript = { "prettierd", "prettier", stop_after_first = true },
         json = { "prettier" },
