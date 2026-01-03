@@ -257,6 +257,7 @@ return {
           zsh = true,
           toml = true,
           java = true,
+          http = true,
         }
 
         local filetype = vim.bo[bufnr].filetype

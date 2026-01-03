@@ -30,6 +30,7 @@ return {
         "ruby",
         "go",
         "clojure",
+        "python"
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
