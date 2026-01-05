@@ -83,6 +83,8 @@ plugins=(
   kubectl
   colorize
   rust
+  rbenv
+  direnv
 )
 
 source $ZSH/oh-my-zsh.sh
