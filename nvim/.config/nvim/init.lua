@@ -35,6 +35,14 @@ vim.g.editorconfig = true
 -- Use stack to save jumps, old jumps may be removed
 vim.o.jumpoptions = "stack"
 
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
+  group = vim.api.nvim_create_augroup("CheckForExternalChanges", { clear = true }),
+  callback = function()
+    vim.cmd("checktime")
+  end,
+})
+
 -- Use spaces instead of tabs
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
