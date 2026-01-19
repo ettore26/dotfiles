@@ -1,0 +1,13 @@
+;; Simple Kanata Config: Right Option -> Control
+
+(defcfg
+  process-unmapped-keys yes  ;; crucial: passes all other keys through normally
+)
+
+(defsrc
+  ralt  ;; This represents the physical "Right Option" key
+)
+
+(deflayer default
+  rctl  ;; This maps it to "Right Control"
+)
