@@ -85,6 +85,7 @@ plugins=(
   rust
   rbenv
   direnv
+  uv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -169,3 +170,5 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+
+. "$HOME/.local/bin/env"
