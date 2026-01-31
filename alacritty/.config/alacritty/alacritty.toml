@@ -61,6 +61,7 @@ bindings = [
         { key = "Key8", mods = "Control", chars = "\u001b[56;5u" },
         { key = "Key9", mods = "Control", chars = "\u001b[57;5u" },
         { key = "Return", mods = "Control", chars = "\u001b[13;5u" },
+        { key = "Slash", mods = "Control", chars = "\u001f" },
 
         # https://github.com/alacritty/alacritty/issues/62#issuecomment-347552058
         # { key = "N", mods = "Alt", chars = "\u001bn" },

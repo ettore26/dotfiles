@@ -121,6 +121,7 @@ export PATH="$HOME/.local/bin/:$PATH"
 
 # FZF config
 source <(fzf --zsh)
+export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/.fzfrc
 
 # SDKMan config
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

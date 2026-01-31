@@ -1,0 +1,24 @@
+# export FZF_CTRL_R_OPTS="
+#   --preview 'echo {}'
+#   --preview-window hidden:wrap
+#   --bind 'ctrl-y:change-preview-window(right:50%|hidden)'
+#   --bind 'ctrl-d:preview-page-down'
+#   --bind 'ctrl-u:preview-page-up'
+#   --bind 'alt-j:preview-down'
+#   --bind 'alt-k:preview-up'"
+
+# Layout and Popup
+# --tmux 80%,80%
+# --layout=reverse
+# --border
+
+# Preview behavior
+--preview 'echo {}'
+--preview-window 'hidden:wrap'
+
+# Bindings
+--bind 'ctrl-/:change-preview-window(down:99%|hidden)'
+--bind 'ctrl-d:preview-page-down'
+--bind 'ctrl-u:preview-page-up'
+--bind 'alt-j:preview-down'
+--bind 'alt-k:preview-up'
