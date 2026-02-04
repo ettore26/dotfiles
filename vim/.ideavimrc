@@ -49,6 +49,9 @@ nnoremap [g :action GotoPreviousError<CR>
 " vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
 " vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
 
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gr :action GotoDeclaration<CR>
+
 " map <C-y> <Action>(EditorChooseLookupItem)
 " inoremap <C-y> <Tab>
 " map <C-y> <Action>(EditorChooseLookupItem)
