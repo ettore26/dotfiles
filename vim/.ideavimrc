@@ -51,9 +51,10 @@ nnoremap [g :action GotoPreviousError<CR>
 
 nnoremap gi :action GotoImplementation<CR>
 nnoremap gr :action GotoDeclaration<CR>
+imap <C-y> :action EditorChooseLookupItem<CR>
 
 " map <C-y> <Action>(EditorChooseLookupItem)
-" inoremap <C-y> <Tab>
+" inoremap <C-y>
 " map <C-y> <Action>(EditorChooseLookupItem)
 " map <C-y> <Action>(EditorChooseLookupItemReplace)
 " map <C-y> <Action>(EditorChooseLookupItemDot)
