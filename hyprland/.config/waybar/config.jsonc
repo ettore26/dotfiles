@@ -3,9 +3,12 @@
   "position": "top",
   "margin-bottom": -10,
   "spacing": 0,
+  "mode": "dock",
+  "exclusive": true,
   "modules-left": ["hyprland/workspaces", "cpu"],
   "modules-center": ["clock"],
   "modules-right": [
+    "tray",
     "bluetooth",
     "network",
     "pulseaudio",
@@ -19,6 +22,10 @@
       "active": "",
       "default": ""
     }
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10
   },
   "bluetooth": {
     "format": "󰂲",
