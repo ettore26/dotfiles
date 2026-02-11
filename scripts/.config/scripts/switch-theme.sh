@@ -16,8 +16,8 @@ switch_alacritty_theme() {
   TARGET_THEME=$1
   echo "Target Alacritty theme: ${TARGET_THEME}"
 
-  SED_PATH=$(echo "~/.config/alacritty/themes/themes/" | sed -e 's/\//\\\//g')
-  sed -Ei "" "s/(${SED_PATH})[a-z,_]*/\1${TARGET_THEME}/" ~/.config/alacritty/alacritty.toml
+  THEME_PATH="~/.config/alacritty/themes/themes/"
+  perl -i -pe "s|${THEME_PATH}\w*|${THEME_PATH}${TARGET_THEME}|" ~/.config/alacritty/alacritty.toml
 }
 
 switch_vim_theme() {
@@ -31,7 +31,7 @@ switch_vim_theme() {
 
   echo "Actual VIM bg: ${ACTUAL_THEME_BG}, Target VIM bg: ${TARGET_THEME_BG}"
 
-  sed -i "" "s/${ACTUAL_THEME_BG}/${TARGET_THEME_BG}/" ~/.vimrc
+  perl -i -pe "s/${ACTUAL_THEME_BG}/${TARGET_THEME_BG}/" ~/.vimrc
 
   tmux list-panes -a -F '#{pane_id} #{pane_current_command}' |
     grep vim | # this captures vim and nvim
@@ -44,7 +44,7 @@ switch_btop_theme() {
   TARGET_THEME=$1
   echo "Target BTOP theme: ${TARGET_THEME}"
 
-  sed -Ei "" "s/(color_theme = ).*/\1\"${TARGET_THEME}\"/" ~/.config/btop/btop.conf
+  perl -i -pe "s/(color_theme = ).*/\1\"${TARGET_THEME}\"/" ~/.config/btop/btop.conf
 }
 
 # For toggle feature, not yer in use
