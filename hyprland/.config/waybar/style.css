@@ -216,6 +216,18 @@
     color: #fb4934;
 }
 
+#battery.critical:not(.charging) {
+    color: #cc241d;
+    animation: blink 1s ease-in-out infinite alternate;
+}
+
+@keyframes blink {
+    to {
+        color: #fb4934;
+    }
+}
+
+
 /* --- Tooltip Styles --- */
 tooltip {
     background-color: #282828;
