@@ -87,6 +87,7 @@
     "on-click": "alacritty -e $HOME/.cargo/bin/wiremix"
   },
   "battery": {
+    "interval": 2,
     "states": {
       "warning": 30,
       "critical": 15
