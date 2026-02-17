@@ -154,8 +154,6 @@ alias vim=nvim
 alias john=$HOME/.local/lib/john_the_ripper/john
 alias grep="grep --color=always"
 
-eval "$(gh copilot alias -- zsh)"
-
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
