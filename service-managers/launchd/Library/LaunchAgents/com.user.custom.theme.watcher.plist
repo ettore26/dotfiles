@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+Commands
+    cp ~/dotfiles/service-managers/launchd/Library/LaunchAgents/com.user.custom.theme.watcher.plist ~/Library/LaunchAgents/
+
+    sudo launchctl load ~/Library/LaunchAgents/com.user.custom.theme.watcher.plist
+    sudo launchctl unload ~/Library/LaunchAgents/com.user.custom.theme.watcher.plist
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>com.user.alacritty-watcher</string>
+
+        <key>ProgramArguments</key>
+        <array>
+            <string>/Users/ettore/.config/scripts/mac-theme-watcher/theme-watcher</string>
+        </array>
+
+        <key>KeepAlive</key>
+        <true />
+
+        <key>RunAtLoad</key>
+        <true />
+
+        <key>StandardErrorPath</key>
+        <string>/tmp/alacritty-watcher.err</string>
+        <key>StandardOutPath</key>
+        <string>/tmp/alacritty-watcher.out</string>
+    </dict>
+</plist>
