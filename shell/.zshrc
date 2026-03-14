@@ -10,6 +10,21 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="agnoster"
 
+
+# Set the number of commands to remember in memory (in-session)
+HISTSIZE=100000
+
+# Set the number of commands to save to the history file
+SAVEHIST=100000
+
+# Optional: ensure history file location is set correctly
+HISTFILE=~/.zsh_history
+
+# Optional: add other useful history options
+setopt INC_APPEND_HISTORY # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY      # Share history between all sessions.
+setopt EXTENDED_HISTORY   # Write the history file in the ":start:elapsed;command" format.
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
