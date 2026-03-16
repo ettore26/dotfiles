@@ -45,8 +45,42 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
           end
 
-          map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-          map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+          -- map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+          -- map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+          -- map("gr", function()
+          --   require("telescope.builtin").lsp_references({ show_line = false, include_declaration = false })
+          -- end, "[G]oto [R]eferences")
+
+          map("gd", function()
+            local params = vim.lsp.util.make_position_params(0)
+            vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result)
+              if err or not result then
+                return
+              end
+              local locations = vim.islist(result) and result or { result }
+              if #locations == 0 then return end
+
+              local current_uri = vim.uri_from_bufnr(0)
+              local cursor_line = vim.api.nvim_win_get_cursor(0)[1] - 1 -- 0-indexed
+
+              local on_definition = false
+              for _, loc in ipairs(locations) do
+                local uri = loc.uri or loc.targetUri
+                local range = loc.range or loc.targetSelectionRange
+                if uri == current_uri and range and range.start.line == cursor_line then
+                  on_definition = true
+                  break
+                end
+              end
+
+              if on_definition then
+                require("telescope.builtin").lsp_references({ show_line = false, include_declaration = false })
+              else
+                require("telescope.builtin").lsp_definitions()
+              end
+            end)
+          end, "[G]oto [D]efinition or [R]eferences")
+
           map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
           map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
           map("K", vim.lsp.buf.hover, "LSP Hover Reference")
