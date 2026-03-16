@@ -11,5 +11,8 @@ return {
     global_keymaps_prefix = "<leader>R",
     kulala_keymaps_prefix = "",
     disable_script_print_output = true,
+    kulala_keymaps = {
+      ["Interrupt requests"] = false,
+    },
   },
 }

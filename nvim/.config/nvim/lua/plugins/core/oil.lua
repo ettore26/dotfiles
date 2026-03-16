@@ -31,6 +31,7 @@ return {
     },
     keymaps = {
       ["<F1>"] = { "actions.show_help" },
+      ["<C-c>"] = false,
     },
     win_options = {
       winbar = "%!v:lua.get_oil_winbar()",

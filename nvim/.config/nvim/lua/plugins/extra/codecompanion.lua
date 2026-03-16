@@ -14,12 +14,31 @@ return {
         },
       },
       display = {
+        action_palette = {
+          provider = "snacks",
+        },
         chat = {
           -- show_settings = true,
           -- start_in_insert_mode = true,
           auto_scroll = true,
           window = {
             layout = "vertical",
+          },
+        },
+      },
+      interactions = {
+        chat = {
+          slash_commands = {
+            ["file"] = {
+              opts = {
+                provider = "snacks",
+              },
+            },
+            ["symbols"] = {
+              opts = {
+                provider = "snacks",
+              },
+            },
           },
         },
       },

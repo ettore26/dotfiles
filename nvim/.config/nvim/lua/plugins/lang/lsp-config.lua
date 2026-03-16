@@ -1,20 +1,5 @@
--- LSP Plugins, Autoformat and Completion
+-- LSP Plugins, Autoformat and Completion (Snacks Picker version)
 return {
-  { -- folke/lazydev.nvim, Lua APIs
-    "folke/lazydev.nvim",
-    event = "VeryLazy",
-    ft = "lua",
-    opts = {
-      library = {
-        -- Load luvit types when the `vim.uv` word is found
-        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        -- Needs `LelouchHe/xmake-luals-addon` to be installed on
-        --        ~/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/3rd/
-        { path = "${3rd}/xmake-luals-addon/library", files = { "xmake.lua" } },
-      },
-    },
-  },
-
   { -- neovim/nvim-lspconfig, mason-org/mason.nvim
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -45,14 +30,13 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
           end
 
-          -- map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-          -- map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-          -- map("gr", function()
-          --   require("telescope.builtin").lsp_references({ show_line = false, include_declaration = false })
-          -- end, "[G]oto [R]eferences")
+          -- map("gd", Snacks.picker.lsp_definitions, "[G]oto [D]efinition")
+          -- map("gr", Snacks.picker.lsp_references, "[G]oto [R]eferences")
 
           map("gd", function()
-            local params = vim.lsp.util.make_position_params(0)
+            local client = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/definition" })[1]
+            if not client then return end
+            local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
             vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result)
               if err or not result then
                 return
@@ -74,20 +58,19 @@ return {
               end
 
               if on_definition then
-                require("telescope.builtin").lsp_references({ show_line = false, include_declaration = false })
+                Snacks.picker.lsp_references()
               else
-                require("telescope.builtin").lsp_definitions()
+                Snacks.picker.lsp_definitions()
               end
             end)
           end, "[G]oto [D]efinition or [R]eferences")
-
-          map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+          map("gI", Snacks.picker.lsp_implementations, "[G]oto [I]mplementation")
           map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
           map("K", vim.lsp.buf.hover, "LSP Hover Reference")
 
-          map("<leader>lD", require("telescope.builtin").lsp_type_definitions, "[L]SP Type [D]efinition")
-          map("<leader>lds", require("telescope.builtin").lsp_document_symbols, "[L]SP [D]ocument [S]ymbols")
-          map("<leader>lws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[L]SP [W]orkspace [S]ymbols")
+          map("<leader>lD", Snacks.picker.lsp_type_definitions, "[L]SP Type [D]efinition")
+          map("<leader>lds", Snacks.picker.lsp_symbols, "[L]SP [D]ocument [S]ymbols")
+          map("<leader>lws", Snacks.picker.lsp_workspace_symbols, "[L]SP [W]orkspace [S]ymbols")
           map("<leader>lr", vim.lsp.buf.rename, "[L]SP [R]ename")
           map("<leader>la", vim.lsp.buf.code_action, "[L]SP [A]ction", { "n", "x" })
 

@@ -36,12 +36,6 @@ vim.g.editorconfig = true
 vim.o.jumpoptions = "stack"
 
 vim.o.autoread = true
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
-  group = vim.api.nvim_create_augroup("CheckForExternalChanges", { clear = true }),
-  callback = function()
-    vim.cmd("checktime")
-  end,
-})
 
 -- Use spaces instead of tabs
 vim.opt.expandtab = true
@@ -133,89 +127,9 @@ vim.opt.laststatus = 3
 -- hide/replace chars by plugins
 vim.opt.conceallevel = 1
 
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
--- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "[Q]uickfix list open diagnostic" })
-vim.keymap.set("n", "]g", function()
-  vim.diagnostic.jump({ count = 1, float = true })
-end, { desc = "Next diagnostic" })
-vim.keymap.set("n", "[g", function()
-  vim.diagnostic.jump({ count = -1, float = true })
-end, { desc = "Previous diagnostic" })
-vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Open diagnostic" })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
--- Navigate buffers
--- vim.keymap.set('n', '<C-n>', '<cmd>bnext<CR>', { desc = 'Next buffer' })
-vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
-vim.keymap.set("n", "<C-p>", "<cmd>bprevious<CR>", { silent = true, desc = "Previous buffer" })
-vim.keymap.set("n", "<C-c>", "<cmd>bwipeout<CR>", { silent = true, desc = "Closees the buffer" })
-
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
--- Start with a new jumplist on opening
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    vim.cmd("clearjumps")
-  end,
-})
-
-vim.api.nvim_create_augroup("BufferCleanup", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  group = "BufferCleanup",
-  callback = function()
-    -- Get current buffer
-    local current_buf = vim.api.nvim_get_current_buf()
-    local current_bufname = vim.api.nvim_buf_get_name(current_buf)
-
-    -- If we're in a named buffer, check for and close unnamed buffers
-    if current_bufname ~= "" and not current_bufname:match("^%s*$") then
-      -- Get all buffers
-      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if buf ~= current_buf and vim.api.nvim_buf_is_loaded(buf) then
-          local bufname = vim.api.nvim_buf_get_name(buf)
-          -- Check if this is an unnamed buffer that's not oil or harpoon
-          if
-            (bufname == "" or bufname:match("^%s*$"))
-            and vim.api.nvim_get_option_value("filetype", { buf = buf }) ~= "netrw"
-            and vim.api.nvim_get_option_value("filetype", { buf = buf }) ~= "oil"
-            and vim.api.nvim_get_option_value("filetype", { buf = buf }) ~= "harpoon"
-          then
-            -- Close the unnamed buffer
-            vim.api.nvim_buf_delete(buf, { force = false })
-          end
-        end
-      end
-    end
-  end,
-})
-
--- Lazy plugin manager config
+-- [[ Keymaps, Autocommands, and Plugins ]]
+require("config.keymaps")
+require("config.autocmds")
 require("config.lazy")
 
 -- The line beneath this is called `modeline`. See `:help modeline`

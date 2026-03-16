@@ -41,28 +41,30 @@ require("lazy").setup(
     --  Uncomment any of the lines below to enable them (you will need to restart nvim).
     --
     -- lang
-    -- require("plugins.lang.lint"),
     require("plugins.lang.lsp-config"),
     require("plugins.lang.treesitter"),
     require("plugins.lang.conjure"),
+    -- require("plugins.lang.lint"),
     -- core
     require("plugins.core.oil"),
-    require("plugins.core.telescope"),
+    require("plugins.core.snacks"),
     require("plugins.core.harpoon"),
     require("plugins.core.undotree"),
     require("plugins.core.git"),
     require("plugins.core.mini"),
     require("plugins.core.bufsurf"),
+    -- require("plugins.core.telescope"),
     -- AI
     require("plugins.extra.copilot"),
     require("plugins.extra.codecompanion"),
+    require("plugins.extra.mcphub"),
     -- require("plugins.extra.avante"),
     -- require("plugins.extra.claudecode"),
-    require("plugins.extra.mcphub"),
     -- note taking
     require("plugins.extra.markdown"),
     require("plugins.extra.obsidian"),
     -- other
+    require("plugins.extra.lazydev"),
     require("plugins.extra.ui-style"),
     require("plugins.extra.autopairs"),
     require("plugins.extra.comments"),
@@ -70,7 +72,6 @@ require("lazy").setup(
     require("plugins.extra.hardtime"),
     require("plugins.extra.zen"),
     require("plugins.extra.aerial"),
-    require("plugins.extra.snacks"),
     require("plugins.extra.kulala"),
     require("plugins.extra.vim-sexp"),
     -- tests
