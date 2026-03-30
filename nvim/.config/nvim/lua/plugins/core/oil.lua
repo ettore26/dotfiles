@@ -36,6 +36,7 @@ return {
     win_options = {
       winbar = "%!v:lua.get_oil_winbar()",
     },
+    delete_to_trash = true,
 
     -- vim.keymap.set('n', '<leader>e', '<CMD>Oil --preview<CR>', { desc = 'Open parent directory' }),
     -- vim.keymap.set('n', '<leader>e', '<CMD>Oil<CR>', { desc = 'Open parent directory' }),

@@ -68,7 +68,7 @@ require("lazy").setup(
     require("plugins.extra.ui-style"),
     require("plugins.extra.autopairs"),
     require("plugins.extra.comments"),
-    require("plugins.extra.which-key"),
+    -- require("plugins.extra.which-key"),
     require("plugins.extra.hardtime"),
     require("plugins.extra.zen"),
     require("plugins.extra.aerial"),
