@@ -79,12 +79,18 @@
     "tooltip": false
   },
   "pulseaudio": {
-    "format": "{icon}  {volume}%",
-    "format-muted": "",
+    "format": "{icon}  {volume}%  {format_source}",
+    "format-muted": "  {format_source}",
+    "format-source": "󰍬",
+    "format-source-muted": "󰍭",
     "format-icons": {
+      "headset": "󰋎",
+      "headphone": "󰋋",
       "default": ["", "", " "]
     },
-    "on-click": "alacritty -e $HOME/.cargo/bin/wiremix"
+    "on-click": "alacritty -e $HOME/.cargo/bin/wiremix",
+    "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "tooltip-format": "{desc} — {volume}%"
   },
   "battery": {
     "interval": 2,
