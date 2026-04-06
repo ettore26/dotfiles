@@ -1,0 +1,25 @@
+gui:
+  returnImmediately: true
+commandTemplates:
+  exec: "docker exec -it {{ .Container.ID }} /bin/sh"
+  serviceLogs: "/bin/sh -c '{{ .DockerCompose }} logs --since=60m --follow {{ .Service.Name }} | moor'"
+  viewServiceLogs: "/bin/sh -c '{{ .DockerCompose }} logs --follow {{ .Service.Name }} | moor'"
+  allLogs: "/bin/sh -c '{{ .DockerCompose }} logs --tail=300 --follow | moor'"
+  viewAlLogs: "/bin/sh -c '{{ .DockerCompose }} logs | moor'"
+customCommands:
+  containers:
+    - name: shell-bash
+      attach: true
+      command: "docker exec -it {{ .Container.ID }} /bin/bash"
+      key: "b"
+    - name: shell-sh
+      attach: true
+      command: "docker exec -it {{ .Container.ID }} /bin/sh"
+      key: "s"
+    - name: logs
+      attach: true
+      command: "/bin/sh -c '{{ .DockerCompose }} logs --follow {{ .Service.Name }} | moor'"
+      key: "l"
+    - name: "grep logs"
+      attach: true
+      command: '{{ .DockerCompose }} logs --tail 100 {{ .Service.Name }} 2>&1 | grep "error"'
