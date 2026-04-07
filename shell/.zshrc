@@ -185,3 +185,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Bob: NVim version manager
+export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
+
