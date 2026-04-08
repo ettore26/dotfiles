@@ -4,18 +4,20 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Ensure packpath includes the site directory (stripped by --clean)
+-- --clean strips the site dir from packpath; vim.pack needs it to packadd installed plugins
 vim.opt.packpath:prepend(vim.fn.stdpath("data") .. "/site")
 
-vim.cmd.packadd("nvim-treesitter")
-vim.cmd.packadd("kulala.nvim")
+vim.pack.add({
+  "https://github.com/nvim-treesitter/nvim-treesitter",
+  "https://github.com/mistweaverco/kulala.nvim",
+})
 
 vim.loader.enable()
 
-require("nvim-treesitter").setup({
-  ensure_installed = { "http" },
-  auto_install = true,
-})
+-- Experimental: new messages/cmdline UI (Neovim 0.12+)
+require("vim._core.ui2").enable()
+
+require("nvim-treesitter").install({ "http" })
 
 vim.api.nvim_create_autocmd("FileType", {
   callback = function()
