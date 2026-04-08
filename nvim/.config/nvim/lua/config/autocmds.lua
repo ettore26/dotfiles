@@ -1,6 +1,15 @@
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
+-- Enable treesitter highlighting and indentation for all filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("treesitter-start", { clear = true }),
+  callback = function()
+    pcall(vim.treesitter.start)
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
+
 -- Check for external file changes
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
   group = vim.api.nvim_create_augroup("CheckForExternalChanges", { clear = true }),
