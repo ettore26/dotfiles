@@ -1,3 +1,5 @@
+local snacks_helper = require("config.snacks_helper")
+
 return {
   { -- 'folke/snacks.nvim'
     "folke/snacks.nvim",
@@ -74,6 +76,8 @@ return {
       { "<leader>hf", function() Snacks.picker.help() end, desc = "[H]elp Tags [F]ind" },
       { "<leader>hm", function() Snacks.picker.man() end, desc = "[H]elp [M]an Pages" },
       { "<leader>hg", function() Snacks.picker.grep({ dirs = vim.fn.globpath(vim.o.runtimepath, "doc/*", 1, 1) }) end, desc = "[H]elp Tags [Grep]" },
+      -- Custom
+      { "<C-t>", snacks_helper.pick_and_paste_path, mode = { "n", "i" }, desc = "Find file & paste path" },
     },
   },
 }
