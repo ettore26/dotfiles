@@ -47,6 +47,25 @@ switch_btop_theme() {
   perl -i -pe "s/(color_theme = ).*/\1\"${TARGET_THEME}\"/" ~/.config/btop/btop.conf
 }
 
+switch_tmux_theme() {
+  TARGET_THEME_BG=$1
+
+  if [ "${TARGET_THEME_BG}" = "light" ]; then
+    TARGET_THEME="gruvbox-light"
+  else
+    TARGET_THEME="gruvbox-dark"
+  fi
+
+  echo "Target Tmux theme: ${TARGET_THEME}"
+
+  THEME_PATH="~/.config/tmux/themes/"
+  perl -i -pe "s|(${THEME_PATH})[\w-]+\.conf|\1${TARGET_THEME}.conf|" ~/.config/tmux/tmux.conf
+
+  if tmux info >/dev/null 2>&1; then
+    tmux source-file ~/.config/tmux/tmux.conf
+  fi
+}
+
 # For toggle feature, not yer in use
 is_gnome_dark() {
   CURRENT_MODE=$(gsettings get org.gnome.desktop.interface color-scheme)
@@ -68,4 +87,5 @@ is_alacritty_dark() {
 switch_alacritty_theme $2
 switch_vim_theme $1
 switch_btop_theme $2
+switch_tmux_theme $1
 
