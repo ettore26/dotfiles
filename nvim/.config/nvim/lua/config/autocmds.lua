@@ -53,8 +53,10 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
           local bufname = vim.api.nvim_buf_get_name(buf)
           -- Check if this is an unnamed buffer that's not oil or harpoon
           local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
+          local modified = vim.api.nvim_get_option_value("modified", { buf = buf })
           if
             (bufname == "" or bufname:match("^%s*$"))
+            and not modified
             and ft ~= "netrw"
             and ft ~= "oil"
             and ft ~= "harpoon"
