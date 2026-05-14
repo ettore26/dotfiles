@@ -2,7 +2,7 @@
 
 <!-- 
 Commands
-    cp ~/dotfiles/service-managers/launchd/Library/LaunchAgents/com.user.custom.theme.watcher.plist ~/Library/LaunchAgents/
+    ln -s ~/dotfiles/service-managers/launchd/Library/LaunchAgents/com.user.custom.theme.watcher.plist ~/Library/LaunchAgents/
 
     sudo launchctl load ~/Library/LaunchAgents/com.user.custom.theme.watcher.plist
     sudo launchctl unload ~/Library/LaunchAgents/com.user.custom.theme.watcher.plist
@@ -17,6 +17,12 @@ Commands
         <array>
             <string>/Users/ettore/.config/scripts/mac-theme-watcher/theme-watcher</string>
         </array>
+
+        <key>EnvironmentVariables</key>
+        <dict>
+            <key>PATH</key>
+            <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        </dict>
 
         <key>KeepAlive</key>
         <true />
