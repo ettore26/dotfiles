@@ -1,24 +1,84 @@
-# Ignore everything
-
 # AWS credentials - never commit actual credentials
 tools/.aws/credentials
+tools/.aws/config
+**/.aws/credentials
 
 # GitHub CLI hosts file may contain tokens
 tools/.config/gh/hosts.yml
+**/gh/hosts.yml
 
-# Any backup files
+# Generic env / secret files
+.env
+.env.*
+*.env
+**/.envrc
+secrets/
+**/secrets.*
+*.secret
+*.secrets
+
+# Credential / token stores
+**/.netrc
+**/.npmrc
+**/credentials.json
+**/credentials.yml
+**/credentials.yaml
+**/.docker/config.json
+**/.kube/config
+**/known_hosts
+
+# Cloud / SDK auth caches
+**/.config/gcloud/
+**/.azure/
+**/.config/op/
+**/.config/sops/
+
+# Claude / local settings that may contain machine paths or tokens
+**/.claude/settings.local.json
+**/settings.local.json
+**/CLAUDE.local.md
+
+# DB dumps / local stores
+*.sqlite
+*.sqlite3
+*.db
+
+# Backup files
 *.bak
 *.backup
 *~
+*.swp
+*.swo
 
+# Caches
 **/cache
+**/.cache/
 
-# SSH keys (just in case)
+# SSH keys
 **/.ssh/
-**/id_*
+**/id_rsa
+**/id_dsa
+**/id_ecdsa
+**/id_ed25519
 **/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+
+# GPG
+**/.gnupg/
+*.gpg
+*.asc
 
 # Browser data
 **/.mozilla/
 **/.config/chromium/
+**/.config/google-chrome/
 
+# History files
+.bash_history
+.zsh_history
+.python_history
+.node_repl_history
+.lesshst
+.viminfo
