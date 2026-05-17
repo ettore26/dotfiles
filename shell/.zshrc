@@ -87,7 +87,6 @@ setopt EXTENDED_HISTORY   # Write the history file in the ":start:elapsed;comman
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   brew
-  tmux
   git
   docker
   vi-mode
@@ -171,6 +170,14 @@ alias john=$HOME/.local/lib/john_the_ripper/john
 alias grep="grep --color=always"
 alias kulala_cli=$HOME/.local/share/nvim/lazy/kulala.nvim/lua/cli/kulala_cli.lua
 alias p81="p81-helper-daemon ctl"
+
+tmux() {
+  if [ $# -eq 0 ]; then
+    tmuxinator start hm
+  else
+    command tmux "$@"
+  fi
+}
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
