@@ -1,5 +1,8 @@
 return {
-  'epwalsh/obsidian.nvim',
+  -- community plugin:
+  -- 'epwalsh/obsidian.nvim',
+  -- Official fork:
+  'obsidian-nvim/obsidian.nvim',
   version = '*', -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = 'markdown',
@@ -18,6 +21,10 @@ return {
     -- see below for full list of optional dependencies 👇
   },
   opts = {
+    legacy_commands = false,
+    sync = {
+      enabled = true,
+    },
     workspaces = {
       {
         name = 'personal',
@@ -40,40 +47,49 @@ return {
     --   min_chars = 2,
     -- },
 
-    mappings = {
-      -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-      -- ['gf'] = {
-      --   action = function()
-      --     return require('obsidian').util.gf_passthrough()
-      --   end,
-      --   opts = { noremap = false, expr = true, buffer = true },
-      -- },
-      -- Toggle check-boxes.
-      ['<leader>ch'] = {
-        action = function()
-          return require('obsidian').util.toggle_checkbox()
-        end,
-        opts = { buffer = true },
-      },
-      -- Smart action depending on context, either follow link or toggle checkbox.
-      ['<cr>'] = {
-        action = function()
-          return require('obsidian').util.smart_action()
-        end,
-        opts = { buffer = true, expr = true },
-      },
-    },
-
     ui = {
       enable = false,
     },
 
-    vim.keymap.set('n', 'gf', function()
-      if require('obsidian').util.cursor_on_markdown_link() then
-        return "m'<cmd>ObsidianFollowLink<CR>"
-      else
-        return 'gf'
-      end
-    end, { noremap = false, expr = true }),
+    -- Render of checkbox icons lives in render-markdown.nvim
+    -- (lua/plugins/extra/markdown.lua). This only controls the toggle order
+    -- when cycling states via `<leader>ch` / `<cr>` smart_action.
+    checkbox = {
+      enabled = true,
+      create_new = true,
+      order = { ' ', '/', '?', '!', '~', '>', 'x' },
+    },
+
+    callbacks = {
+      enter_note = function(note)
+        local actions = require('obsidian.actions')
+        local api = require('obsidian.api')
+
+        -- Toggle check-boxes.
+        vim.keymap.set('n', '<leader>ch', actions.toggle_checkbox, {
+          buffer = note.bufnr,
+          desc = 'Obsidian: toggle checkbox',
+        })
+
+        -- Smart action: follow link / toggle checkbox / fold heading / show tag.
+        vim.keymap.set('n', '<cr>', actions.smart_action, {
+          buffer = note.bufnr,
+          expr = true,
+          desc = 'Obsidian: smart action',
+        })
+
+        -- Override 'gf' to follow markdown/wiki links inside the vault.
+        vim.keymap.set('n', 'gf', function()
+          if api.cursor_link() then
+            return "m'<cmd>Obsidian follow_link<cr>"
+          end
+          return 'gf'
+        end, {
+          buffer = note.bufnr,
+          expr = true,
+          desc = 'Obsidian: follow link or gf',
+        })
+      end,
+    },
   },
 }

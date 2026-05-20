@@ -17,6 +17,18 @@ return {
           -- highlight = 'none',
           -- highlight_border = 'none',
         },
+        checkbox = {
+          enabled = true,
+          unchecked = { icon = "󰄱 ", highlight = "RenderMarkdownChecked" },
+          checked   = { icon = "󰄲 ", highlight = "RenderMarkdownChecked" },
+          custom = {
+            in_progress = { raw = "[/]", rendered = "󰪞 ", highlight = "RenderMarkdownChecked" },
+            question    = { raw = "[?]", rendered = "󰋗 ", highlight = "RenderMarkdownChecked" },
+            important   = { raw = "[!]", rendered = "󰀦 ", highlight = "RenderMarkdownChecked" },
+            cancelled   = { raw = "[~]", rendered = "󰩺 ", highlight = "RenderMarkdownChecked" },
+            forwarded   = { raw = "[>]", rendered = "➤ ", highlight = "RenderMarkdownChecked" },
+          },
+        },
       })
     end,
   },
