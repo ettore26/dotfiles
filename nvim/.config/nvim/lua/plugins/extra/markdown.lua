@@ -23,6 +23,7 @@ return {
           checked   = { icon = "󰄲 ", highlight = "RenderMarkdownChecked" },
           custom = {
             in_progress = { raw = "[/]", rendered = "󰪞 ", highlight = "RenderMarkdownChecked" },
+            delayed     = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownChecked" },
             question    = { raw = "[?]", rendered = "󰋗 ", highlight = "RenderMarkdownChecked" },
             important   = { raw = "[!]", rendered = "󰀦 ", highlight = "RenderMarkdownChecked" },
             cancelled   = { raw = "[~]", rendered = "󰩺 ", highlight = "RenderMarkdownChecked" },
