@@ -387,6 +387,13 @@ return {
         default = { "lsp", "path", "snippets", "lazydev" },
         providers = {
           lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+          path = {
+            opts = {
+              get_cwd = function(_)
+                return vim.fn.getcwd()
+              end,
+            },
+          },
           snippets = {
             should_show_items = function(ctx)
               return ctx.trigger.initial_kind ~= "trigger_character"
