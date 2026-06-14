@@ -74,6 +74,7 @@ require("lazy").setup(
     require("plugins.extra.aerial"),
     require("plugins.extra.kulala"),
     require("plugins.extra.vim-sexp"),
+    require("plugins.extra.sql"),
     -- tests
     -- require("plugins.test.debug"),
     -- require("plugins.test.indent_line"),

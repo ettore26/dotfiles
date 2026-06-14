@@ -36,6 +36,55 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+-- Bind each db buffer to its own directory's .env (vim-dadbod-ui, one-dir-at-a-time)
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Load dir-local .env and bind dadbod connection for DB query buffers",
+  group = vim.api.nvim_create_augroup("dadbod-dir-env", { clear = true }),
+  pattern = { "sql", "mysql", "plsql", "redis" },
+  callback = function(args)
+    -- run once per real file buffer; skip dadbod-ui's own scratch/query buffers
+    -- (DBUIFindBuffer re-sets ft=sql -> would re-trigger this and loop)
+    if vim.b[args.buf].dadbod_dir_env_done then
+      return
+    end
+    if vim.bo[args.buf].buftype ~= "" or args.file == "" then
+      return
+    end
+    vim.b[args.buf].dadbod_dir_env_done = true
+
+    local dir = vim.fn.fnamemodify(args.file, ":p:h")
+    if vim.fn.filereadable(dir .. "/.env") ~= 1 then
+      return
+    end
+    -- this file's dir becomes cwd -> its inner .env is the one dadbod-ui reads
+    vim.cmd.lcd(vim.fn.fnameescape(dir))
+
+    -- Derive g:db_ui_save_location from THIS file's location: parent of its dir.
+    -- dadbod-ui globs saved queries from <save_location>/<connection_name>, and
+    -- the connection name (from DB_UI_<DIR>) equals the dir basename -> the glob
+    -- lands back in this exact dir. No static project path. Note: dadbod-ui
+    -- reads this once at first DBUI init; sibling dirs share a parent so the
+    -- value is stable. (Switching to a dir under a different parent mid-session
+    -- needs a fresh nvim, since the DBUI instance is cached.)
+    vim.g.db_ui_save_location = vim.fn.fnamemodify(dir, ":h")
+
+    -- Bind b:db from the dir's .env so a directly-opened file (not via the DBUI
+    -- drawer) still runs with :DB. Drawer integration is handled natively by
+    -- g:db_ui_save_location -> files show under "Saved queries"; opening one
+    -- from the drawer binds the connection itself, no autocmd needed.
+    pcall(function()
+      require("lazy").load({ plugins = { "vim-dotenv", "vim-dadbod" } })
+    end)
+    if vim.fn.exists(":Dotenv") == 2 then
+      -- vim-dotenv expands ${PGUSER}/${DATABASE_URL} on load
+      vim.cmd("silent! Dotenv " .. vim.fn.fnameescape(dir .. "/.env"))
+      if vim.env.DATABASE_URL and vim.env.DATABASE_URL ~= "" then
+        vim.b.db = vim.env.DATABASE_URL
+      end
+    end
+  end,
+})
+
 -- Clean up unnamed buffers when entering a named buffer
 vim.api.nvim_create_augroup("BufferCleanup", { clear = true })
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
