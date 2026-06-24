@@ -168,7 +168,6 @@ alias vim=nvim
 alias nvim-testing='nvim --clean -u ~/.config/nvim/testing_init.lua'
 alias john=$HOME/.local/lib/john_the_ripper/john
 alias grep="grep --color=always"
-alias kulala_cli=$HOME/.local/share/nvim/lazy/kulala.nvim/lua/cli/kulala_cli.lua
 alias p81="p81-helper-daemon ctl"
 
 tmux() {
