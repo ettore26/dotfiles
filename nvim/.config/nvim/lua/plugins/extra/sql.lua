@@ -41,4 +41,46 @@ return {
       -- queries from that very dir. No hardcoded project path.
     end,
   },
+  {
+    "kndndrj/nvim-dbee",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    build = function()
+      -- Install tries to automatically detect the install method.
+      -- if it fails, try calling it with one of these parameters:
+      --    "curl", "wget", "bitsadmin", "go"
+      require("dbee").install()
+    end,
+    config = function()
+      -- Scratchpad notes live in the current directory. Root = parent of cwd,
+      -- used only as the persistence fallback below.
+      local root_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":h")
+      -- persistence.json (connections): search upward from the opened note's dir,
+      -- so it's picked up whether it sits beside the note, in a parent, or at root.
+      -- Fall back to the root when none found.
+      local start = vim.fn.expand("%:p:h")
+      if start == "" then
+        start = vim.fn.getcwd()
+      end
+      local found = vim.fn.findfile("persistence.json", start .. ";")
+      local persistence = found ~= "" and vim.fn.fnamemodify(found, ":p") or (root_dir .. "/persistence.json")
+      require("dbee").setup({
+        sources = {
+          -- require("dbee.sources").MemorySource:new({
+          --   {
+          --     name = "DB from env",
+          --     type = "postgres",
+          --     url = "postgres://usrdev:x4P8aBPqzbhlLR0@psql-tuefectivo-des-eastus2-02.postgres.database.azure.com:5432/tu_efectivo?sslmode=require",
+          --   },
+          -- }),
+          -- require("dbee.sources").EnvSource:new("DBEE_CONNECTIONS"),
+          require("dbee.sources").FileSource:new(persistence),
+        },
+        editor = {
+          directory = vim.fn.getcwd(),
+        },
+      })
+    end,
+  },
 }
