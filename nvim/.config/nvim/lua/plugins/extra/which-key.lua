@@ -18,7 +18,23 @@
 return {
   'folke/which-key.nvim',
   event = 'VeryLazy', -- Sets the loading event to 'VeryLazy'
+  init = function()
+    -- Off by default. Auto-popup disabled until toggled on.
+    if vim.g.which_key_enabled == nil then
+      vim.g.which_key_enabled = false
+    end
+    local function toggle()
+      vim.g.which_key_enabled = not vim.g.which_key_enabled
+      vim.notify('which-key ' .. (vim.g.which_key_enabled and 'ON' or 'OFF'))
+    end
+    vim.api.nvim_create_user_command('WhichKeyToggle', toggle, { desc = 'Toggle which-key auto popup' })
+    vim.keymap.set('n', '<leader>wk', toggle, { desc = 'Toggle [W]hich-[K]ey' })
+  end,
   opts = {
+    -- delay read live on every trigger; large delay = popup never auto-shows
+    delay = function()
+      return vim.g.which_key_enabled and 200 or 1e9
+    end,
     win = {
       border = "rounded",
     },
