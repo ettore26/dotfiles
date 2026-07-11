@@ -181,6 +181,9 @@ tmux() {
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
+# bws completions
+[ -s "$HOME/.config/bws/completion" ] && source "$HOME/.config/bws/completion"
+
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"

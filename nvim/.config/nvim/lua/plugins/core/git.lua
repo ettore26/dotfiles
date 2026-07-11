@@ -48,16 +48,16 @@ return {
     event = "VeryLazy",
     config = function()
       require("gitsigns").setup({
-        signs = {
-            add = "",
-            change = "",
-            delete = "",
-            topdelete = "",
-            changedelete = "",
-            untracked = "",
-        },
-
-        signs_staged_enable = false,
+        -- signs = {
+        --     add = "",
+        --     change = "",
+        --     delete = "",
+        --     topdelete = "",
+        --     changedelete = "",
+        --     untracked = "",
+        -- },
+        --
+        -- signs_staged_enable = false,
 
         on_attach = function(bufnr)
           local gitsigns = require("gitsigns")
