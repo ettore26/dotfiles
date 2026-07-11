@@ -1,0 +1,4 @@
+# tpm-managed plugins — not tracked; `prefix + I` installs them.
+# tpm itself is a git submodule (bootstrapped on `git clone --recursive`).
+/plugins/*
+!/plugins/tpm

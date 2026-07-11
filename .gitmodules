@@ -17,3 +17,6 @@
     path = backgrounds/.config/backgrounds/gruvbox-wallpapers
     url = https://github.com/AngelJumbo/gruvbox-wallpapers.git
     branch = main
+[submodule "tmux/.config/tmux/plugins/tpm"]
+	path = tmux/.config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
