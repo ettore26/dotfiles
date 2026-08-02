@@ -172,7 +172,7 @@ alias p81="p81-helper-daemon ctl"
 
 tmux() {
   if [ $# -eq 0 ]; then
-    tmuxinator start hm
+    tmuxinator start _hm
   else
     command tmux "$@"
   fi
