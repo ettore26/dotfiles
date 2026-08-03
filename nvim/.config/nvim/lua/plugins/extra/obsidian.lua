@@ -1,3 +1,5 @@
+local obsidian_helper = require('config.obsidian_helper')
+
 return {
   -- community plugin:
   -- 'epwalsh/obsidian.nvim',
@@ -25,20 +27,8 @@ return {
     sync = {
       enabled = true,
     },
-    workspaces = {
-      {
-        name = 'personal',
-        path = '~/Documents/notes',
-      },
-      -- {
-      --   name = 'personal',
-      --   path = '~/.local/share/nvim/obsidian/vaults/personal',
-      -- },
-      -- {
-      --   name = 'work',
-      --   path = '~/.local/share/nvim/obsidian/vaults/work',
-      -- },
-    },
+    -- Resolved at startup: restart nvim after creating a new org notes dir.
+    workspaces = obsidian_helper.discover_workspaces(),
 
     -- completion = {
     --   -- Set to false to disable completion.
