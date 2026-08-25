@@ -220,6 +220,14 @@ return {
       })
       require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+      -- ruby-lsp is installed per rbenv version (`gem install ruby-lsp`), not via Mason:
+      -- a Mason-installed copy hardcodes one Ruby in its shebang, so it fails with
+      -- Bundler::RubyVersionMismatch in every project pinned to a different version.
+      -- Keep lspconfig's default `cmd` — it launches with cwd = root_dir, which is what
+      -- lets the rbenv shim resolve the project's .ruby-version.
+      vim.lsp.config("ruby_lsp", { capabilities = capabilities })
+      vim.lsp.enable("ruby_lsp")
+
       require("mason-lspconfig").setup({
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,

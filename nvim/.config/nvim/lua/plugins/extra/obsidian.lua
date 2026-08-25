@@ -47,7 +47,7 @@ return {
     checkbox = {
       enabled = true,
       create_new = true,
-      order = { ' ', '/', '-', '?', '!', '~', '>', 'x' },
+      order = { ' ', 'x', '/', '-', '?', '!', '~', '>' },
     },
 
     callbacks = {
