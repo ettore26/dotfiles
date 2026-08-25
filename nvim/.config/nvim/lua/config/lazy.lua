@@ -55,7 +55,6 @@ require("lazy").setup(
     require("plugins.core.bufsurf"),
     -- require("plugins.core.telescope"),
     -- AI
-    require("plugins.extra.copilot"),
     require("plugins.extra.codecompanion"),
     require("plugins.extra.mcphub"),
     -- require("plugins.extra.avante"),
