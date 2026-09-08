@@ -20,5 +20,13 @@ return {
     require("kulala").setup(opts)
     -- Reshapes "Copy as cURL" (<leader>Rc) into a pasteable multi-line command
     require("config.kulala_curl").patch_copy()
+
+    -- `g?` (show news) throws E344 upstream: kulala 3209abf deleted NEWS.md and
+    -- docs/, but ui.show_news still reads NEWS.md and `lcd`s into docs/docs.
+    -- The news moved into the help files, so send the keymap there instead.
+    -- Remove once upstream fixes show_news.
+    require("kulala.ui").show_news = function()
+      vim.cmd("help kulala.NEWS.txt")
+    end
   end,
 }

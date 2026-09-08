@@ -1,25 +1,39 @@
 gui:
   returnImmediately: true
+
 commandTemplates:
   exec: "docker exec -it {{ .Container.ID }} /bin/sh"
-  serviceLogs: "/bin/sh -c '{{ .DockerCompose }} logs --since=60m --follow {{ .Service.Name }} | moor'"
-  viewServiceLogs: "/bin/sh -c '{{ .DockerCompose }} logs --follow {{ .Service.Name }} | moor'"
-  allLogs: "/bin/sh -c '{{ .DockerCompose }} logs --tail=300 --follow | moor'"
-  viewAlLogs: "/bin/sh -c '{{ .DockerCompose }} logs | moor'"
+
+  # These two are rendered *into lazydocker's own panel* -- it captures stdout
+  # and draws it itself, so there must be no pager in the pipeline here.
+  serviceLogs: "{{ .DockerCompose }} logs --since=60m --follow {{ .Service.Name }}"
+  allLogs: "{{ .DockerCompose }} logs --tail=300 --follow"
+
+  # These two open a subprocess (Enter on a service / on the project). lazydocker
+  # starts them with Setpgid, i.e. in a *background* process group, so a pager
+  # gets SIGTTOU/SIGTTIN and is stopped before it draws anything. The wrapper
+  # claims the terminal first and hands it back on exit.
+  # NB: "viewAlLogs" is misspelled in lazydocker itself -- that is the real key.
+  viewServiceLogs: "/bin/sh -c '$HOME/.config/scripts/lazydocker-pager.sh {{ .DockerCompose }} logs --follow {{ .Service.Name }}'"
+  viewAlLogs: "/bin/sh -c '$HOME/.config/scripts/lazydocker-pager.sh {{ .DockerCompose }} logs'"
+
+# Custom commands have no "key" option -- they are all reached from the "c" menu
+# on the relevant panel. Unlike the view*Logs templates above they are not put in
+# a background process group, so they can pipe into a pager directly; "shell:
+# true" is what makes the pipe itself work.
 customCommands:
   containers:
     - name: shell-bash
       attach: true
       command: "docker exec -it {{ .Container.ID }} /bin/bash"
-      key: "b"
     - name: shell-sh
       attach: true
       command: "docker exec -it {{ .Container.ID }} /bin/sh"
-      key: "s"
     - name: logs
       attach: true
-      command: "/bin/sh -c '{{ .DockerCompose }} logs --follow {{ .Service.Name }} | moor'"
-      key: "l"
-    - name: "grep logs"
+      shell: true
+      command: "docker logs --follow {{ .Container.ID }} 2>&1 | moor --follow"
+    - name: grep logs
       attach: true
-      command: '{{ .DockerCompose }} logs --tail 100 {{ .Service.Name }} 2>&1 | grep "error"'
+      shell: true
+      command: "docker logs --tail 100 {{ .Container.ID }} 2>&1 | grep -i error | moor"
