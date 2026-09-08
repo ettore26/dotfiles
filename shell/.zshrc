@@ -92,7 +92,6 @@ plugins=(
   vi-mode
   colored-man-pages
   mvn
-  poetry
   mix
   kubectl
   colorize
@@ -169,6 +168,8 @@ alias nvim-testing='nvim --clean -u ~/.config/nvim/testing_init.lua'
 alias john=$HOME/.local/lib/john_the_ripper/john
 alias grep="grep --color=always"
 alias p81="p81-helper-daemon ctl"
+alias claude-work="CLAUDE_CONFIG_DIR=~/.claude-work claude"
+alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 
 tmux() {
   if [ $# -eq 0 ]; then
