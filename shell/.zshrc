@@ -160,7 +160,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
 # k9s: kubernetes cli
 export K9S_CONFIG_DIR="$XDG_CONFIG_HOME/k9s"
-export K9S_LOGS_DIR="$K9S_CONFIG_DIR/k9s/logs"
+export K9S_LOGS_DIR="$K9S_CONFIG_DIR/logs"
 
 #
 # Configuration
