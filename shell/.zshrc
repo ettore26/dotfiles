@@ -110,13 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -129,8 +122,72 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+#
+# Aliases
+#
+
+alias vim=nvim
+alias nvim-testing='nvim --clean -u ~/.config/nvim/testing_init.lua'
+alias john=$HOME/.local/lib/john_the_ripper/john
+alias grep="grep --color=always"
+alias p81="p81-helper-daemon ctl"
+alias claude-work="CLAUDE_CONFIG_DIR=~/.claude-work claude"
+alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
+
+#
+# Export variables
+#
+
 # local binary path
 export PATH="$HOME/.local/bin/:$PATH"
+# xdg: freedesktop
+export XDG_CONFIG_HOME="$HOME/.config"
+# LaTeX PATH config
+# https://tug.org/texlive/quickinstall.html
+export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
+# GoLang config
+export GOPATH=$HOME/go
+export PATH="$GOPATH/bin:$PATH"
+# kubernetes helm config
+export KUBECONFIG=~/.kube/config
+# nvm: node version manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# bun: js runtime
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+# Bob: NVim version manager
+export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
+# k9s: kubernetes cli
+export K9S_CONFIG_DIR="$XDG_CONFIG_HOME/k9s"
+export K9S_LOGS_DIR="$K9S_CONFIG_DIR/k9s/logs"
+
+#
+# Configuration
+#
+
+# neovim/nvim/vim Editor
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+# Tmuxinator Config
+tmux() {
+  if [ $# -eq 0 ]; then
+    tmuxinator start _hm
+  else
+    command tmux "$@"
+  fi
+}
+
+# pnpm: package manager
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # FZF config
 source <(fzf --zsh)
@@ -141,62 +198,14 @@ export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/.fzfrc
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# LaTeX PATH config
-# https://tug.org/texlive/quickinstall.html
-export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
-
-# GoLang config
-# needed for SOPS (Secrets OPerationS)
-export GOPATH=$HOME/go
-export PATH="$GOPATH/bin:$PATH"
-
-# kubernetes helm config
-export KUBECONFIG=~/.kube/config
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# ssh configuration
-# eval "$(ssh-agent -s)"
-# ssh-add ~/.ssh/id_ed25519_XXX
-# eval "$(ssh-agent -s)"
-# grep -slR "PRIVATE" ~/.ssh/ | xargs ssh-add
-
-alias vim=nvim
-alias nvim-testing='nvim --clean -u ~/.config/nvim/testing_init.lua'
-alias john=$HOME/.local/lib/john_the_ripper/john
-alias grep="grep --color=always"
-alias p81="p81-helper-daemon ctl"
-alias claude-work="CLAUDE_CONFIG_DIR=~/.claude-work claude"
-alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
-
-tmux() {
-  if [ $# -eq 0 ]; then
-    tmuxinator start _hm
-  else
-    command tmux "$@"
-  fi
-}
+#
+# Completion
+#
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
 # bws completions
 [ -s "$HOME/.config/bws/completion" ] && source "$HOME/.config/bws/completion"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# Bob: NVim version manager
-export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
+# nvm completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
