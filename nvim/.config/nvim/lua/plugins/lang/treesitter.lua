@@ -7,6 +7,7 @@ return {
     config = function()
       require("nvim-treesitter").install({
         "bash",
+        "zsh",
         "c",
         "diff",
         "html",
@@ -31,6 +32,14 @@ return {
         "clojure",
         "python",
       })
+
+      -- ft=zsh otherwise claims the tree-sitter zsh parser, whose external
+      -- scanner aborts on large histories:
+      --   Assertion failed: (size == length), deserialize, scanner.c:475
+      -- Reproduces by parsing ~/.zsh_history as a plain string, so it is the
+      -- grammar, not highlighting. bash parses the same content fine and is
+      -- already installed above.
+      vim.treesitter.language.register("bash", "zsh")
     end,
   },
   {
