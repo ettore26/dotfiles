@@ -122,9 +122,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#
+################################################################################################################################################
 # Aliases
-#
+################################################################################################################################################
 
 alias vim=nvim
 alias nvim-testing='nvim --clean -u ~/.config/nvim/testing_init.lua'
@@ -134,9 +134,9 @@ alias p81="p81-helper-daemon ctl"
 alias claude-work="CLAUDE_CONFIG_DIR=~/.claude-work claude"
 alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 
-#
+################################################################################################################################################
 # Export variables
-#
+################################################################################################################################################
 
 # local binary path
 export PATH="$HOME/.local/bin/:$PATH"
@@ -150,21 +150,15 @@ export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 # kubernetes helm config
 export KUBECONFIG=~/.kube/config
-# nvm: node version manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# bun: js runtime
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 # Bob: NVim version manager
 export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
 # k9s: kubernetes cli
 export K9S_CONFIG_DIR="$XDG_CONFIG_HOME/k9s"
 export K9S_LOGS_DIR="$K9S_CONFIG_DIR/logs"
 
-#
+################################################################################################################################################
 # Configuration
-#
+################################################################################################################################################
 
 # neovim/nvim/vim Editor
 if [[ -n $SSH_CONNECTION ]]; then
@@ -182,6 +176,20 @@ tmux() {
   fi
 }
 
+# FZF config
+source <(fzf --zsh)
+export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/.fzfrc
+
+# nvm: node version manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# bun: js runtime
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
 # pnpm: package manager
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
@@ -189,23 +197,15 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# FZF config
-source <(fzf --zsh)
-export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/.fzfrc
-
 # SDKMan config
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-#
+################################################################################################################################################
 # Completion
-#
+################################################################################################################################################
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 # bws completions
 [ -s "$HOME/.config/bws/completion" ] && source "$HOME/.config/bws/completion"
-# nvm completion
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
