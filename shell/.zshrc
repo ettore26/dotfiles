@@ -155,6 +155,26 @@ export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
 # k9s: kubernetes cli
 export K9S_CONFIG_DIR="$XDG_CONFIG_HOME/k9s"
 export K9S_LOGS_DIR="$K9S_CONFIG_DIR/logs"
+# Per-OS tool dirs: appended only when the directory exists, so the same list
+# works on macOS and Linux
+if [[ $OSTYPE == darwin* ]]; then
+  _app_data="$HOME/Library/Application Support"
+  _git_contrib="${HOMEBREW_PREFIX:-/opt/homebrew}/share/git-core/contrib/diff-highlight"
+  _coursier="$_app_data/Coursier/bin"
+else
+  _app_data="${XDG_DATA_HOME:-$HOME/.local/share}"
+  _git_contrib="/usr/share/git-core/contrib"
+  _coursier="$_app_data/coursier/bin"
+fi
+_tool_dirs=(
+  "$_git_contrib"                         # git: diff-highlight, the pager in .gitconfig
+  "$_coursier"                            # coursier: Scala/JVM app installer
+  "$_app_data/JetBrains/Toolbox/scripts"  # JetBrains Toolbox: IDE launcher scripts
+)
+for _dir in $_tool_dirs; do
+  [[ -d $_dir ]] && path+=("$_dir")
+done
+unset _app_data _git_contrib _coursier _tool_dirs _dir
 
 ################################################################################################################################################
 # Configuration
