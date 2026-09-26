@@ -228,6 +228,23 @@ return {
       vim.lsp.config("ruby_lsp", { capabilities = capabilities })
       vim.lsp.enable("ruby_lsp")
 
+      -- neocmakelsp only sends plain command names unless `use_snippets` is set (it isn't in
+      -- the README, see src/languageserver/config.rs); with it, `add_executable` expands to
+      -- `add_executable(<name> <options>... <sources>...)` with tabstops. Builtin
+      -- commands/variables/modules come from `cmake --help-*` and are cached for 28 days in
+      -- ~/.cache/neocmakelsp, so if cmake wasn't on PATH when the server first ran, delete
+      -- that dir to get command completions back.
+      vim.lsp.config("neocmake", {
+        capabilities = capabilities,
+        init_options = {
+          use_snippets = true,
+          format = { enable = true },
+          lint = { enable = true },
+          scan_cmake_in_package = true,
+          semantic_token = false, -- treesitter already highlights cmake
+        },
+      })
+
       require("mason-lspconfig").setup({
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
