@@ -76,6 +76,7 @@ setopt EXTENDED_HISTORY   # Write the history file in the ":start:elapsed;comman
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="%Y-%m-%dT%H:%M:%SZ"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
