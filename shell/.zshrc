@@ -132,8 +132,8 @@ alias nvim-testing='nvim --clean -u ~/.config/nvim/testing_init.lua'
 alias john=$HOME/.local/lib/john_the_ripper/john
 alias grep="grep --color=always"
 alias p81="p81-helper-daemon ctl"
-alias claude-work="CLAUDE_CONFIG_DIR=~/.claude-work claude"
-alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
+alias claude-wm="CLAUDE_CONFIG_DIR=~/.claude-wm claude"
+alias claude-br="CLAUDE_CONFIG_DIR=~/.claude-br claude"
 
 ################################################################################################################################################
 # Export variables
