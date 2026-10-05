@@ -197,6 +197,9 @@ tmux() {
   fi
 }
 
+# Claude Code: resume a session under the profile that owns it
+source ~/.config/scripts/claude-resume.zsh
+
 # FZF config
 source <(fzf --zsh)
 export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/.fzfrc
