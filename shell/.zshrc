@@ -171,6 +171,7 @@ _tool_dirs=(
   "$_git_contrib"                         # git: diff-highlight, the pager in .gitconfig
   "$_coursier"                            # coursier: Scala/JVM app installer
   "$_app_data/JetBrains/Toolbox/scripts"  # JetBrains Toolbox: IDE launcher scripts
+  "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/mason/bin"  # Mason: nvim-managed LSPs, e.g. jdtls for Claude Code
 )
 for _dir in $_tool_dirs; do
   [[ -d $_dir ]] && path+=("$_dir")
@@ -197,12 +198,16 @@ tmux() {
   fi
 }
 
+# git: gwtc [query] cds into a worktree picked with fzf
+source ~/.config/scripts/git-worktree-cd.sh
+
 # Claude Code: resume a session under the profile that owns it
 source ~/.config/scripts/claude-resume.zsh
 
 # FZF config
 source <(fzf --zsh)
 export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/.fzfrc
+source ~/.config/scripts/fzf-git-branches.zsh
 
 # nvm: node version manager
 export NVM_DIR="$HOME/.nvm"

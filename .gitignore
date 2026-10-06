@@ -82,3 +82,8 @@ secrets/
 .node_repl_history
 .lesshst
 .viminfo
+
+# Current theme links (retargeted by scripts/.config/scripts/switch-theme.sh)
+**/current-theme.toml
+**/current-theme.conf
+**/current-theme.theme
