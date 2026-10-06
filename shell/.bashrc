@@ -29,6 +29,9 @@ eval "$(fzf --bash)"
 
 set -o vi
 
+# git: gwtc [query] cds into a worktree picked with fzf
+. ~/.config/scripts/git-worktree-cd.sh
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

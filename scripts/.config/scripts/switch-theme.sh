@@ -16,8 +16,9 @@ switch_alacritty_theme() {
   TARGET_THEME=$1
   echo "Target Alacritty theme: ${TARGET_THEME}"
 
-  THEME_PATH="~/.config/alacritty/themes/themes/"
-  perl -i -pe "s|${THEME_PATH}\w*|${THEME_PATH}${TARGET_THEME}|" ~/.config/alacritty/alacritty.toml
+  ln -sfn "${TARGET_THEME}.toml" ~/.config/alacritty/themes/current-theme.toml
+  # Retargeting the link does not trigger the live reload, touching the config does
+  touch ~/.config/alacritty/alacritty.toml
 }
 
 switch_vim_theme() {
@@ -44,7 +45,10 @@ switch_btop_theme() {
   TARGET_THEME=$1
   echo "Target BTOP theme: ${TARGET_THEME}"
 
-  perl -i -pe "s/(color_theme = ).*/\1\"${TARGET_THEME}\"/" ~/.config/btop/btop.conf
+  # Themes shipped with btop live in "../share/btop/themes" relative to the binary
+  THEME_PATH="$(dirname "$(command -v btop)")/../share/btop/themes"
+  mkdir -p ~/.config/btop/themes
+  ln -sfn "${THEME_PATH}/${TARGET_THEME}.theme" ~/.config/btop/themes/current-theme.theme
 }
 
 switch_tmux_theme() {
@@ -58,8 +62,7 @@ switch_tmux_theme() {
 
   echo "Target Tmux theme: ${TARGET_THEME}"
 
-  THEME_PATH="~/.config/tmux/themes/"
-  perl -i -pe "s|(${THEME_PATH})[\w-]+\.conf|\1${TARGET_THEME}.conf|" ~/.config/tmux/tmux.conf
+  ln -sfn "${TARGET_THEME}.conf" ~/.config/tmux/themes/current-theme.conf
 
   if tmux info >/dev/null 2>&1; then
     tmux source-file ~/.config/tmux/tmux.conf

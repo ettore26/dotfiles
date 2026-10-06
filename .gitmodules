@@ -1,8 +1,3 @@
-[submodule "alacritty-themes"]
-    path = alacritty/.config/alacritty/themes
-    url = https://github.com/alacritty/alacritty-theme.git
-    branch = gruvbox-dark-light-cursor-color
-
 [submodule "yazi-gruvbox-dark"]
     path = tools/.config/yazi/flavors/gruvbox-dark.yazi
     url = https://github.com/bennyyip/gruvbox-dark.yazi.git
