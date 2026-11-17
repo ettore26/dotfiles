@@ -78,13 +78,6 @@ return {
       local persistence = found ~= "" and vim.fn.fnamemodify(found, ":p") or (root_dir .. "/persistence.json")
       require("dbee").setup({
         sources = {
-          -- require("dbee.sources").MemorySource:new({
-          --   {
-          --     name = "DB from env",
-          --     type = "postgres",
-          --     url = "postgres://REDACTED",
-          --   },
-          -- }),
           -- require("dbee.sources").EnvSource:new("DBEE_CONNECTIONS"),
           require("dbee.sources").FileSource:new(persistence),
         },
