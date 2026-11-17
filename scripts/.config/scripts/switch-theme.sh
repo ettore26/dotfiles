@@ -69,6 +69,14 @@ switch_tmux_theme() {
   fi
 }
 
+switch_ccmux_theme() {
+  TARGET_THEME="gruvbox-$1"
+  echo "Target ccmux theme: ${TARGET_THEME}"
+
+  # The theme is read when ccmux launches, so the next picker/popup picks it up
+  command -v ccmux >/dev/null && ccmux config set theme "${TARGET_THEME}"
+}
+
 # For toggle feature, not yer in use
 is_gnome_dark() {
   CURRENT_MODE=$(gsettings get org.gnome.desktop.interface color-scheme)
@@ -91,4 +99,5 @@ switch_alacritty_theme $2
 switch_vim_theme $1
 switch_btop_theme $2
 switch_tmux_theme $1
+switch_ccmux_theme $1
 

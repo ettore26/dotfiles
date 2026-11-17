@@ -42,3 +42,5 @@ export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
 
 . "$HOME/.cargo/env"
 
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi

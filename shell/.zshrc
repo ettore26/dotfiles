@@ -100,9 +100,21 @@ plugins=(
   rbenv
   direnv
   uv
+  xcrun
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# agnoster: show the default branch at a bare repo's root, where prompt_git shows nothing
+functions -c prompt_git _agnoster_prompt_git
+prompt_git() {
+  if [[ $(command git rev-parse --is-bare-repository 2>/dev/null) == true ]]; then
+    prompt_segment "$AGNOSTER_GIT_CLEAN_BG" "$AGNOSTER_GIT_CLEAN_FG" \
+      "bare "$'\ue0a0'" $(command git symbolic-ref --short HEAD 2>/dev/null)"
+  else
+    _agnoster_prompt_git
+  fi
+}
 
 # User configuration
 
@@ -123,9 +135,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-################################################################################################################################################
+# ----------------------------------------------------------------------------------------------------------------------------------------------
 # Aliases
-################################################################################################################################################
+# ----------------------------------------------------------------------------------------------------------------------------------------------
 
 alias vim=nvim
 alias nvim-testing='nvim --clean -u ~/.config/nvim/testing_init.lua'
@@ -135,9 +147,9 @@ alias p81="p81-helper-daemon ctl"
 alias claude-wm="CLAUDE_CONFIG_DIR=~/.claude-wm claude"
 alias claude-br="CLAUDE_CONFIG_DIR=~/.claude-br claude"
 
-################################################################################################################################################
+# ----------------------------------------------------------------------------------------------------------------------------------------------
 # Export variables
-################################################################################################################################################
+# ----------------------------------------------------------------------------------------------------------------------------------------------
 
 # local binary path
 export PATH="$HOME/.local/bin/:$PATH"
@@ -156,31 +168,40 @@ export PATH="$HOME/.local/share/bob/nvim-bin/:$PATH"
 # k9s: kubernetes cli
 export K9S_CONFIG_DIR="$XDG_CONFIG_HOME/k9s"
 export K9S_LOGS_DIR="$K9S_CONFIG_DIR/logs"
+# Added by Android CLI installer
+export PATH="$PATH:/Users/ettore/.local/bin"
 # Per-OS tool dirs: appended only when the directory exists, so the same list
 # works on macOS and Linux
 if [[ $OSTYPE == darwin* ]]; then
   _app_data="$HOME/Library/Application Support"
   _git_contrib="${HOMEBREW_PREFIX:-/opt/homebrew}/share/git-core/contrib/diff-highlight"
   _coursier="$_app_data/Coursier/bin"
+  _android_sdk="$HOME/Library/Android/sdk"
 else
   _app_data="${XDG_DATA_HOME:-$HOME/.local/share}"
   _git_contrib="/usr/share/git-core/contrib"
   _coursier="$_app_data/coursier/bin"
+  _android_sdk="$HOME/Android/Sdk"
 fi
+# Android SDK
+[[ -d $_android_sdk ]] && export ANDROID_HOME="$_android_sdk"
 _tool_dirs=(
   "$_git_contrib"                         # git: diff-highlight, the pager in .gitconfig
   "$_coursier"                            # coursier: Scala/JVM app installer
   "$_app_data/JetBrains/Toolbox/scripts"  # JetBrains Toolbox: IDE launcher scripts
   "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/mason/bin"  # Mason: nvim-managed LSPs, e.g. jdtls for Claude Code
+  "$_android_sdk/emulator"                # Android: emulator
+  "$_android_sdk/platform-tools"          # Android: adb, fastboot
+  "$_android_sdk/cmdline-tools/latest/bin"  # Android: sdkmanager, avdmanager
 )
 for _dir in $_tool_dirs; do
   [[ -d $_dir ]] && path+=("$_dir")
 done
-unset _app_data _git_contrib _coursier _tool_dirs _dir
+unset _app_data _git_contrib _coursier _android_sdk _tool_dirs _dir
 
-################################################################################################################################################
+# ----------------------------------------------------------------------------------------------------------------------------------------------
 # Configuration
-################################################################################################################################################
+# ----------------------------------------------------------------------------------------------------------------------------------------------
 
 # neovim/nvim/vim Editor
 if [[ -n $SSH_CONNECTION ]]; then
@@ -231,10 +252,12 @@ esac
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-################################################################################################################################################
+# ----------------------------------------------------------------------------------------------------------------------------------------------
 # Completion
-################################################################################################################################################
+# ----------------------------------------------------------------------------------------------------------------------------------------------
 
 # bws completions
 [ -s "$HOME/.config/bws/completion" ] && source "$HOME/.config/bws/completion"
+# android cli completions
+[ -s "$HOME/.local/bin/android" ] && source <(android completion zsh)
 

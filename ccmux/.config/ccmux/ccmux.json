@@ -1,0 +1,6 @@
+{
+  "additionalClaudeConfigDirs": [
+    "~/.claude-wm"
+  ],
+  "theme": "gruvbox-dark"
+}

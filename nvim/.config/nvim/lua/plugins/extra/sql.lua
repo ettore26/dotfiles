@@ -32,6 +32,17 @@ return {
     init = function()
       -- Configure dadbod behavior
       vim.g.db_ui_use_nerd_fonts = 1
+      -- The drawer's <C-k>/<C-j> (first/last sibling) shadow smart-splits navigation;
+      -- move them to gK/gJ beside DBUI's own K/J (prev/next sibling).
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "dbui",
+        callback = function(ev)
+          pcall(vim.keymap.del, "n", "<C-k>", { buffer = ev.buf })
+          pcall(vim.keymap.del, "n", "<C-j>", { buffer = ev.buf })
+          vim.keymap.set("n", "gK", "<Plug>(DBUI_GotoFirstSibling)", { buffer = ev.buf, desc = "First sibling" })
+          vim.keymap.set("n", "gJ", "<Plug>(DBUI_GotoLastSibling)", { buffer = ev.buf, desc = "Last sibling" })
+        end,
+      })
       -- .redis isn't a built-in filetype; map it so directly-opened redis query
       -- files trigger the dadbod-dir-env autocmd (b:db bind) like .sql do.
       vim.filetype.add({ extension = { redis = "redis" } })

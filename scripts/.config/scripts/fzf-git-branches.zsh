@@ -1,24 +1,33 @@
-# Ctrl-G: pick a local branch of the current repo with fzf and paste it at the
-# cursor, like fzf's own Ctrl-T does for files. Source after `fzf --zsh`.
+# Ctrl-G: pick a local branch of the current repo with fzf and switch to it,
+# like fzf's own Alt-C does for directories. Source after `fzf --zsh`.
 # Each line is `[branch]* <path>`: the `*` and the worktree path when the
 # branch is checked out, or the main checkout when it is not checked out anywhere.
-# Enter pastes the branch name, Alt-Enter the path.
+# Enter cds into the worktree of a checked-out branch and checks out any other
+# branch here; Alt-Enter pastes the path at the cursor. Ctrl-X deletes the branch
+# and the worktree it is checked out in, after a prompt; Tab marks several.
+# The preview (Ctrl-/ in .fzfrc) is the branch's diff against the default branch.
 
 fzf-git-branch-widget() {
-  local out key branch dir main
-  main=${$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null):h}
-  out=$(git for-each-ref --sort=-committerdate \
-          --format='%(refname:short)%09%(worktreepath)' refs/heads 2>/dev/null |
-        awk -F'\t' -v main="$main" 'BEGIN { OFS = FS } { print "[" $1 "]" ($2 == "" ? "" : "*"), ($2 == "" ? main : $2) }' |
-        column -t -s $'\t' |
-        fzf --exit-0 --expect=alt-enter --header 'enter: branch name | alt-enter: path | *: checked out')
+  local out key branch dir cmd helper=~/.config/scripts/fzf-git-branches-helper.zsh
+  out=$($helper list |
+        fzf --exit-0 --multi --expect=alt-enter \
+            --bind "ctrl-x:execute($helper delete {+1})+reload($helper list)" \
+            --preview "$helper preview {1}" \
+            --header 'enter: cd or checkout | alt-enter: path | ctrl-x: delete | ctrl-/: diff | *: checked out')
   key=${out%%$'\n'*}
   read -r branch dir <<< "${out#*$'\n'}"
-  branch=${${${branch#\[}%\*}%\]}
   if [[ $key == alt-enter ]]; then
     [[ -n $dir ]] && LBUFFER+=${(q)dir}
-  else
-    [[ -n $branch ]] && LBUFFER+=${(q)branch}
+  elif [[ $branch == *\* ]]; then
+    cmd="builtin cd -- ${(q)dir}"
+  elif [[ -n $branch ]]; then
+    cmd="git checkout ${(q)${${branch#\[}%\]}}"
+  fi
+  if [[ -n $cmd ]]; then
+    # Run it as a typed command, so the prompt and history update as usual.
+    zle push-line
+    BUFFER=$cmd
+    zle accept-line
   fi
   zle reset-prompt
 }

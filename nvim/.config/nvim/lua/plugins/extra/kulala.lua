@@ -1,3 +1,14 @@
+-- A response-split keymap that calls `require(mod)[fn]()`, unprefixed
+local function ui_key(lhs, fn, mod)
+  return {
+    lhs,
+    function()
+      require(mod or "kulala.ui")[fn]()
+    end,
+    prefix = false,
+  }
+end
+
 return {
   "mistweaverco/kulala.nvim",
   keys = {
@@ -40,6 +51,35 @@ return {
         desc = "Interrupt requests / close WS connection",
         prefix = false,
       },
+      -- Defaults <C-h>/<C-l> shadow smart-splits navigation out of the response split
+      ["Previous tab"] = {
+        "gT",
+        function()
+          require("kulala.ui").show_previous_tab()
+        end,
+        prefix = false,
+      },
+      ["Next tab"] = {
+        "gt",
+        function()
+          require("kulala.ui").show_next_tab()
+        end,
+        prefix = false,
+      },
+      -- The single-letter defaults (H, B, V, ...) shadow normal-mode keys such as
+      -- V (visual-line) in the response split; move them all behind g.
+      -- s/S would both be gs, so search is g/; gR and gX keep clear of the LSP
+      -- gr* prefix (which delays gr) and of gx (open URL).
+      ["Show headers"] = ui_key("gh", "show_headers"),
+      ["Show body"] = ui_key("gb", "show_body"),
+      ["Show headers and body"] = ui_key("ga", "show_headers_body"),
+      ["Show verbose"] = ui_key("gv", "show_verbose"),
+      ["Show script output"] = ui_key("go", "show_script_output"),
+      ["Show stats"] = ui_key("gs", "show_stats"),
+      ["Show report"] = ui_key("gR", "show_report"),
+      ["Show filter"] = ui_key("gf", "toggle_filter"),
+      ["Search responses"] = ui_key("g/", "search_responses", "kulala"),
+      ["Clear responses history"] = ui_key("gX", "clear_responses_history"),
       -- Global <C-n>/<C-p> cycle buffers; don't let them swap one into the response split
       ["Disable next buffer"] = { "<C-n>", "<Nop>", prefix = false },
       ["Disable previous buffer"] = { "<C-p>", "<Nop>", prefix = false },

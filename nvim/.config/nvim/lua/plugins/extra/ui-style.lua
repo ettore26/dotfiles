@@ -58,11 +58,42 @@ return {
         ["@number"] = { link = "GruvboxFg1" },
         ["@boolean"] = { link = "GruvboxFg1" },
         ["@comment"] = { link = "GruvboxGray" },
+
+        -- render-markdown headings: one color per level (backgrounds set in config)
+        ["@markup.heading.1.markdown"] = { link = "GruvboxRedBold" },
+        ["@markup.heading.2.markdown"] = { link = "GruvboxOrangeBold" },
+        ["@markup.heading.3.markdown"] = { link = "GruvboxYellowBold" },
+        ["@markup.heading.4.markdown"] = { link = "GruvboxGreenBold" },
+        ["@markup.heading.5.markdown"] = { link = "GruvboxAquaBold" },
+        -- blue looks best on dark; on light neutral_blue (#458588) looks better than gruvbox's faded blue
+        ["@markup.heading.6.markdown"] = { link = "GruvboxBlueBold" },
       },
       dim_inactive = false,
       transparent_mode = false,
     },
     config = function(_, opts)
+      -- render-markdown heading backgrounds: each heading color blended into Normal bg,
+      -- recomputed on every load so it follows light/dark switches
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        group = vim.api.nvim_create_augroup("custom_highlights_gruvbox", {}),
+        pattern = "gruvbox",
+        callback = function()
+          local function blend(fg, bg, alpha)
+            local function channel(c, shift)
+              return bit.band(bit.rshift(c, shift), 0xff)
+            end
+            local r = channel(fg, 16) * alpha + channel(bg, 16) * (1 - alpha)
+            local g = channel(fg, 8) * alpha + channel(bg, 8) * (1 - alpha)
+            local b = channel(fg, 0) * alpha + channel(bg, 0) * (1 - alpha)
+            return string.format("#%02x%02x%02x", r, g, b)
+          end
+          local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+          for level = 1, 6 do
+            local fg = vim.api.nvim_get_hl(0, { name = "@markup.heading." .. level .. ".markdown", link = false }).fg
+            vim.api.nvim_set_hl(0, "RenderMarkdownH" .. level .. "Bg", { bg = blend(fg, normal_bg, 0.2) })
+          end
+        end,
+      })
       require("gruvbox").setup(opts)
       vim.cmd("colorscheme gruvbox")
     end,

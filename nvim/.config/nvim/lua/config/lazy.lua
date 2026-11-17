@@ -53,6 +53,7 @@ require("lazy").setup(
     require("plugins.core.git"),
     require("plugins.core.mini"),
     require("plugins.core.bufsurf"),
+    require("plugins.core.smart-splits"),
     -- require("plugins.core.telescope"),
     -- AI
     require("plugins.extra.codecompanion"),

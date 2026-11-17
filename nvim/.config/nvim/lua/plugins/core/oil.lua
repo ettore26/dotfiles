@@ -32,6 +32,14 @@ return {
     keymaps = {
       ["<F1>"] = { "actions.show_help" },
       ["<C-c>"] = false,
+      -- free <C-h>/<C-l> for smart-splits navigation, <C-p>/<C-t> for the global maps
+      ["<C-h>"] = false,
+      ["<C-l>"] = false,
+      ["<C-p>"] = false,
+      ["<C-t>"] = false,
+      ["<C-x>"] = { "actions.select", opts = { horizontal = true } },
+      ["R"] = "actions.refresh",
+      ["gp"] = "actions.preview",
     },
     win_options = {
       winbar = "%!v:lua.get_oil_winbar()",

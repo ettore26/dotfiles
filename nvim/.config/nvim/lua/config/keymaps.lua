@@ -35,6 +35,13 @@ vim.keymap.set("n", "<C-p>", "<cmd>bprevious<CR>", { silent = true, desc = "Prev
 
 -- vim.keymap.set("n", "<C-c>", "<cmd>bwipeout<CR>", { silent = true, desc = "Closees the buffer" })
 vim.keymap.set("n", "<C-c>", function()
+  local splits = vim.tbl_filter(function(win)
+    return vim.api.nvim_win_get_config(win).relative == ""
+  end, vim.api.nvim_tabpage_list_wins(0))
+  if #splits > 1 then
+    vim.cmd("close")
+    return
+  end
   if vim.bo.filetype == "oil" then
     vim.cmd("only")
     return

@@ -20,6 +20,13 @@ git() {
   if [ "$1" = worktree ] && [ "$2" = checkout ]; then
     shift 2
     gwtc "$@"
+  elif [ "$1" = wkt ] || [ "$1" = brn ]; then
+    # Prints a path only when Enter picks a worktree, or a branch checked out in one
+    _gwtc_dir=$(command git "$@")
+    if [ -n "$_gwtc_dir" ]; then
+      cd "$_gwtc_dir"
+    fi
+    unset _gwtc_dir
   else
     command git "$@"
   fi
