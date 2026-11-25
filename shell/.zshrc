@@ -260,4 +260,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [ -s "$HOME/.config/bws/completion" ] && source "$HOME/.config/bws/completion"
 # android cli completions
 [ -s "$HOME/.local/bin/android" ] && source <(android completion zsh)
+# claude completions: subcommands and options parsed from `claude --help`
+source ~/.config/scripts/claude-completion.zsh
 
