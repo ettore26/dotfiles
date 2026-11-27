@@ -8,6 +8,7 @@ Personal configuration files for my development environment.
 - **backgrounds** - Desktop wallpapers and backgrounds
 - **ccmux** - AI agent session tracker for tmux (preferences only)
 - **darkman** - Dark/light mode switching automation
+- **ghostty** - Terminal emulator configuration
 - **hyprland** - Wayland compositor configuration (hypridle, hyprlock, hyprpaper, waybar, wofi)
 - **nvim** - Neovim configuration with plugins and custom settings
 - **scripts** - Utility scripts for system automation
