@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Keys",
+  "version": "3.2",
+  "description": "⌘ for tabs, ⌃⌘ for tab groups: N next, P previous, T new, ⇧ to move. Works on every page, the New Tab page and chrome:// included",
+  "permissions": [
+    "tabGroups"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "next-tab": {
+      "description": "Next tab (⌘N)"
+    },
+    "previous-tab": {
+      "description": "Previous tab (⌘P)"
+    },
+    "move-tab-right": {
+      "description": "Move tab right (⌘⇧N)"
+    },
+    "move-tab-left": {
+      "description": "Move tab left (⌘⇧P)",
+      "suggested_key": {
+        "mac": "Command+Shift+P"
+      }
+    },
+    "next-group": {
+      "description": "Next tab group (⌃⌘N)"
+    },
+    "previous-group": {
+      "description": "Previous tab group (⌃⌘P)"
+    },
+    "move-group-right": {
+      "description": "Move tab group right (⌃⌘⇧N)"
+    },
+    "move-group-left": {
+      "description": "Move tab group left (⌃⌘⇧P)"
+    },
+    "new-group": {
+      "description": "New tab in a new tab group (⌃⌘T)",
+      "suggested_key": {
+        "mac": "MacCtrl+Command+T"
+      }
+    }
+  }
+}
