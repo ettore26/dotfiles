@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Tab Keys",
-  "version": "3.2",
-  "description": "⌘ for tabs, ⌃⌘ for tab groups: N next, P previous, T new, ⇧ to move. Works on every page, the New Tab page and chrome:// included",
+  "version": "3.3",
+  "description": "Tab and tab-group shortcuts: ⌘ / Ctrl for tabs, ⌃⌘ / Alt for groups, N next, P previous, T new, ⇧ to move. Works on every page, the New Tab page and chrome:// included",
   "permissions": [
     "tabGroups"
   ],
@@ -11,36 +11,45 @@
   },
   "commands": {
     "next-tab": {
-      "description": "Next tab (⌘N)"
+      "description": "Next tab (⌘N · Ctrl+N)"
     },
     "previous-tab": {
-      "description": "Previous tab (⌘P)"
+      "description": "Previous tab (⌘P · Ctrl+P)"
     },
     "move-tab-right": {
-      "description": "Move tab right (⌘⇧N)"
+      "description": "Move tab right (⌘⇧N · Ctrl+Shift+N)"
     },
     "move-tab-left": {
-      "description": "Move tab left (⌘⇧P)",
+      "description": "Move tab left (⌘⇧P · Ctrl+Shift+P)",
       "suggested_key": {
         "mac": "Command+Shift+P"
       }
     },
     "next-group": {
-      "description": "Next tab group (⌃⌘N)"
+      "description": "Next tab group (⌃⌘N · Alt+N)",
+      "suggested_key": {
+        "mac": "MacCtrl+Command+N",
+        "linux": "Alt+N"
+      }
     },
     "previous-group": {
-      "description": "Previous tab group (⌃⌘P)"
+      "description": "Previous tab group (⌃⌘P · Alt+P)",
+      "suggested_key": {
+        "mac": "MacCtrl+Command+P",
+        "linux": "Alt+P"
+      }
     },
     "move-group-right": {
-      "description": "Move tab group right (⌃⌘⇧N)"
+      "description": "Move tab group right (⌃⌘⇧N · Alt+Shift+N)"
     },
     "move-group-left": {
-      "description": "Move tab group left (⌃⌘⇧P)"
+      "description": "Move tab group left (⌃⌘⇧P · Alt+Shift+P)"
     },
     "new-group": {
-      "description": "New tab in a new tab group (⌃⌘T)",
+      "description": "New tab in a new tab group (⌃⌘T · Alt+T)",
       "suggested_key": {
-        "mac": "MacCtrl+Command+T"
+        "mac": "MacCtrl+Command+T",
+        "linux": "Alt+T"
       }
     }
   }
